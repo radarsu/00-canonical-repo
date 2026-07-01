@@ -16,6 +16,7 @@
         "@app_/api-contract": "workspace:*",
         "@app_/localhost-https": "workspace:*",
         "@app_/ui": "workspace:*",
+        "@tanstack/vue-query": "catalog:",
         "@orpc/client": "catalog:",
         "@orpc/contract": "catalog:",
         "@orpc/openapi-client": "catalog:",
