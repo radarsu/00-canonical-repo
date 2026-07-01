@@ -37,6 +37,12 @@ modules + UI). The lean 3-folder layout here is the starting point, not a ceilin
   names are derived by SCREAMING_SNAKE-casing the schema path (`api.port` → `API_PORT`). Sources merge
   `.env` < process env < CLI args. Secrets are tagged `.meta({ secret: true })` and masked in logs (`mask()`
   in `_apps/api/src/log.ts`). `.env.example` is committed; `.env` is git-ignored.
+- **Logging — pino.** A root logger ([_apps/api/src/logger.ts](_apps/api/src/logger.ts)) fed by the typed
+  config: `LOG_LEVEL` sets verbosity, `LOG_PRETTY` toggles colorized dev output (in-process pino-pretty stream,
+  Bun-safe) vs. single-line JSON for prod. A Hono middleware binds a per-request child logger (correlated by
+  `requestId`) that flows onto the oRPC context, so every handler logs with request scope (`context.logger`);
+  completed requests log method/path/status/duration. `redact` scrubs secret-ish fields; config secrets are
+  masked via `mask()`. Promote `logger.ts` to a shared `_backend/api-shared` if a second backend app appears.
 - **Scripts naming.** Canonical verbs everywhere: `dev` (watch), `build` (artifact), `typecheck`, `lint`,
   `format`. Grouped infra is colon-namespaced: `db:up`/`db:down`, `db:migrate` (author a dev migration),
   `db:deploy` (apply committed migrations), `db:studio`, `deps:up`. Each layer's name matches its target —

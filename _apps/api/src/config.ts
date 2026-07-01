@@ -34,6 +34,16 @@ const configSchema = z.object({
             httpsCert: z.string().default(``),
         })
         .prefault({}),
+    // Pino logging. LOG_LEVEL sets verbosity; LOG_PRETTY toggles human-readable dev output (colorized,
+    // in-process) vs. single-line JSON for prod. Defaults to pretty everywhere but production.
+    log: z
+        .object({
+            level: z.enum([`fatal`, `error`, `warn`, `info`, `debug`, `trace`, `silent`]).default(`info`),
+            // z.stringbool parses "true"/"false"/"1"/"0" from the env string (z.coerce.boolean treats any
+            // non-empty string — including "false" — as true).
+            pretty: z.stringbool().default(process.env[`NODE_ENV`] !== `production`),
+        })
+        .prefault({}),
 });
 
 // Merge order (later wins): .env file < process env < CLI args. So `bun start --api.port=7000` overrides.
@@ -47,10 +57,4 @@ export type Config = z.infer<typeof configSchema>;
 // Dotted paths of secret fields — pass to mask() before logging the config.
 export const CONFIG_SECRETS = [`database.url`, `betterAuth.secret`, `google.clientSecret`];
 
-export const loadConfig = (): Config => {
-    const config = loadPuristicConfig(definition);
-    if (!config.google.clientId || !config.google.clientSecret) {
-        console.log(`Note: GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET unset — using email+password sign-in only.`);
-    }
-    return config;
-};
+export const loadConfig = (): Config => loadPuristicConfig(definition);

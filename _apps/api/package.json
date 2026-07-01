@@ -24,6 +24,8 @@
         "@puristic/env": "catalog:",
         "better-auth": "catalog:",
         "hono": "catalog:",
+        "pino": "catalog:",
+        "pino-pretty": "catalog:",
         "tslib": "catalog:",
         "zod": "catalog:"
     },

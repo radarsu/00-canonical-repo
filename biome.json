@@ -39,7 +39,7 @@
                 "noNodejsModules": "off",
                 "noUnusedVariables": "off"
             },
-            "recommended": true,
+            "preset": "recommended",
             "style": {
                 "noEnum": "error",
                 "noInferrableTypes": "error",

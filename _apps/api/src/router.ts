@@ -36,6 +36,8 @@ export const router = {
             const note = await context.prisma.note.create({
                 data: { userId: user.id, title: input.title, body: input.body },
             });
+            // Handlers log through the per-request logger on the context (correlated by requestId).
+            context.logger.info({ noteId: note.id, userId: user.id }, `note created`);
             return { id: note.id, title: note.title, body: note.body, createdAt: note.createdAt.toISOString() };
         }),
         remove: os.notes.remove.handler(async ({ context, input }) => {
