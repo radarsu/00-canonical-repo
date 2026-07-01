@@ -1,0 +1,20 @@
+/* Base resets layered under everything else. Applied globally by the app importing styles/core/index.css. */
+@layer base {
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        background: var(--color-surface-50);
+        color: var(--color-surface-900);
+    }
+
+    [data-mode="dark"] body {
+        background: var(--color-surface-950);
+        color: var(--color-surface-100);
+    }
+}

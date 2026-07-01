@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "biomejs.biome",
+        "angular.ng-template",
+        "prisma.prisma",
+        "bradlc.vscode-tailwindcss",
+        "puristic.env-manager",
+        "oven.bun-vscode"
+    ]
+}

@@ -1,0 +1,16 @@
+/* Prisma is the one build-to-dist lib: the `prisma-client` generator emits TypeScript into ./generated,
+ * so `build` runs `prisma generate` then `tsc` to compile both client.ts and the generated sources into
+ * dist/ (consumed via the exports map). */
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "exactOptionalPropertyTypes": false,
+        "noPropertyAccessFromIndexSignature": false,
+        "outDir": "./dist",
+        "rootDir": "./",
+        "tsBuildInfoFile": "./.cache/tsbuildinfo"
+    },
+    "include": ["./client.ts", "./generated/**/*"],
+    "exclude": ["./dist/**/*"],
+    "extends": "../../_tools/tsconfig/tsconfig.base.json"
+}

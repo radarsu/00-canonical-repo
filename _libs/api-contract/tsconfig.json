@@ -1,0 +1,13 @@
+/* Source-first: this package is consumed directly from src (main/exports → ./src/index.ts), so no
+ * emit — this config only type-checks via `pnpm --filter @app_/api-contract typecheck`. */
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "composite": false,
+        "noEmit": true,
+        "rootDir": "./src",
+        "tsBuildInfoFile": "./.cache/tsbuildinfo"
+    },
+    "include": ["./src/**/*"],
+    "extends": "../../_tools/tsconfig/tsconfig.base.json"
+}

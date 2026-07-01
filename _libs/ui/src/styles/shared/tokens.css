@@ -1,0 +1,6 @@
+/* Non-color design tokens, exposed to Tailwind via @theme so `rounded-ui`, `p-page`, etc. resolve. */
+@theme {
+    --radius-ui: 0.75rem;
+    --spacing-page: 1.5rem;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}

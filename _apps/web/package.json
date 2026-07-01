@@ -1,0 +1,49 @@
+{
+    "name": "@app_/web",
+    "version": "0.0.0",
+    "private": true,
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "esbuild src/environments/environment.local.ts --bundle --target=es2024 --outfile=src/assets/js/env.js && ng serve",
+        "watch": "esbuild src/environments/environment.local.ts --bundle --target=es2024 --outfile=src/assets/js/env.js && ng serve",
+        "build": "ng build --configuration=production && esbuild src/environments/environment.deployment.ts --bundle --minify --target=es2024 --outfile=dist/browser/assets/js/env.js",
+        "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    },
+    "dependencies": {
+        "@angular/animations": "catalog:",
+        "@angular/cdk": "catalog:",
+        "@angular/common": "catalog:",
+        "@angular/compiler": "catalog:",
+        "@angular/core": "catalog:",
+        "@angular/forms": "catalog:",
+        "@angular/platform-browser": "catalog:",
+        "@angular/router": "catalog:",
+        "@app_/api-contract": "workspace:*",
+        "@app_/localhost-https": "workspace:*",
+        "@app_/ui": "workspace:*",
+        "@orpc/client": "catalog:",
+        "@orpc/contract": "catalog:",
+        "@orpc/openapi-client": "catalog:",
+        "@primeuix/themes": "catalog:",
+        "better-auth": "catalog:",
+        "primeicons": "catalog:",
+        "primeng": "catalog:",
+        "rxjs": "catalog:",
+        "tailwind-merge": "catalog:",
+        "tslib": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@angular/build": "catalog:",
+        "@angular/cli": "catalog:",
+        "@angular/compiler-cli": "catalog:",
+        "@app_/tsconfig": "workspace:*",
+        "@tailwindcss/postcss": "catalog:",
+        "@types/node": "catalog:",
+        "esbuild": "catalog:",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:"
+    }
+}

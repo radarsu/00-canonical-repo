@@ -1,0 +1,35 @@
+{
+    "name": "@app_/api",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "main": "src/main.ts",
+    "scripts": {
+        "dev": "bun --watch ./src/main.ts",
+        "start": "bun ./src/main.ts",
+        "typecheck": "tsc --noEmit",
+        "build": "tsc --noEmit",
+        "env:example": "purenv generate env-example --config ./src/config.ts --out ../../.env.example",
+        "env:types": "purenv generate dts --config ./src/config.ts",
+        "bundle": "rm -rf ./deploy && pnpm deploy --filter=@app_/api --prod ./deploy"
+    },
+    "dependencies": {
+        "@app_/api-contract": "workspace:*",
+        "@app_/localhost-https": "workspace:*",
+        "@app_/prisma": "workspace:*",
+        "@orpc/openapi": "catalog:",
+        "@orpc/server": "catalog:",
+        "@prisma/adapter-pg": "catalog:",
+        "@prisma/client": "catalog:",
+        "@puristic/env": "catalog:",
+        "better-auth": "catalog:",
+        "hono": "catalog:",
+        "tslib": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@app_/tsconfig": "workspace:*",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:"
+    }
+}

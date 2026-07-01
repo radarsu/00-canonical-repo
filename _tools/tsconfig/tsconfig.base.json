@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "customConditions": ["@app_/src"],
+        "declaration": true,
+        "declarationMap": true,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "incremental": true,
+        "isolatedModules": true,
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "newLine": "lf",
+        "noEmitOnError": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "removeComments": true,
+        // Don't type-check dependency .d.ts files: some deps reference optional peers we don't install,
+        // which otherwise breaks a from-clean rebuild. Matches the apps.
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "target": "ES2024",
+        "useDefineForClassFields": true
+    }
+}

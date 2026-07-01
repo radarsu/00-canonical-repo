@@ -1,0 +1,25 @@
+{
+    "$schema": "https://turborepo.com/schema.json",
+    "ui": "tui",
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", ".cache/**", "generated/**"]
+        },
+        "typecheck": {
+            "dependsOn": ["^build"]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "watch": {
+            "cache": false,
+            "persistent": true
+        }
+    },
+    "remoteCache": {
+        "enabled": false
+    },
+    "concurrency": "200%"
+}

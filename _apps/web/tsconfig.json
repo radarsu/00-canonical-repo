@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "rootDir": "../..",
+        "tsBuildInfoFile": "./.cache/tsbuildinfo",
+        // Consume the source-first workspace libs directly from their .ts source — the Angular AOT compiler
+        // pulls the live contract/UI code, so a change in _libs reflects here with no rebuild.
+        "paths": {
+            "@app_/ui": ["../../_libs/ui/src/index.ts"],
+            "@app_/api-contract": ["../../_libs/api-contract/src/index.ts"]
+        }
+    },
+    "extends": "@app_/tsconfig/tsconfig.angular.json"
+}

@@ -1,0 +1,39 @@
+{
+    "name": "@app_/prisma",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "main": "dist/client.js",
+    "types": "dist/client.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/client.d.ts",
+            "default": "./dist/client.js"
+        }
+    },
+    "files": [
+        "dist",
+        "generated",
+        "migrations",
+        "schema.prisma",
+        "prisma.config.ts"
+    ],
+    "scripts": {
+        "build": "rm -rf ./generated ./dist ./.cache && DATABASE_URL=postgresql://placeholder prisma generate --no-hints && tsc",
+        "generate": "DATABASE_URL=postgresql://placeholder prisma generate --no-hints",
+        "migrate": "prisma migrate deploy",
+        "alter": "prisma migrate dev",
+        "push": "prisma db push --accept-data-loss",
+        "studio": "prisma studio"
+    },
+    "dependencies": {
+        "@prisma/adapter-pg": "catalog:",
+        "@prisma/client": "catalog:",
+        "tslib": "catalog:"
+    },
+    "devDependencies": {
+        "@app_/tsconfig": "workspace:*",
+        "prisma": "catalog:",
+        "typescript": "catalog:"
+    }
+}

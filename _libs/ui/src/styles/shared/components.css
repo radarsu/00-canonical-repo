@@ -1,0 +1,28 @@
+/* Component classes for the @app_/ui primitives. Kept in the `components` cascade layer so app-level
+ * Tailwind utilities (which live in `utilities`, declared last) can always override them. */
+@layer components {
+    .ui-card {
+        display: block;
+        border-radius: var(--radius-ui);
+        border: 1px solid var(--color-surface-200);
+        background: var(--color-surface-50);
+        padding: 1rem;
+    }
+
+    [data-mode="dark"] .ui-card {
+        border-color: var(--color-surface-700);
+        background: var(--color-surface-900);
+    }
+
+    .ui-card-dashed {
+        border-style: dashed;
+        background: transparent;
+    }
+
+    .ui-page {
+        display: block;
+        margin-inline: auto;
+        max-width: 48rem;
+        padding: var(--spacing-page);
+    }
+}

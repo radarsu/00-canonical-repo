@@ -1,0 +1,13 @@
+/* Establish the cascade-layer order BEFORE Tailwind/PrimeNG declare theirs, so `utilities` stays last and
+ * Tailwind utility classes always beat PrimeNG component styles (see provideUi cssLayer order). */
+@layer theme, base, primeng, components, utilities;
+
+@import "tailwindcss";
+
+/* The @app_/ui design system: tokens + palette + component classes, then base resets. */
+@import "../../../_libs/ui/src/styles/shared/index.css";
+@import "../../../_libs/ui/src/styles/core/index.css";
+
+/* Scan the @app_/ui source for class names — it lives outside this app's tree, so Tailwind won't
+ * auto-detect it. The app's own files are auto-detected. */
+@source "../../../_libs/ui/src/**/*.{ts,html}";

@@ -1,0 +1,10 @@
+/* Project-wide custom utilities. Add semantic shortcuts here (e.g. surface roles) so apps share them. */
+@utility surface-canvas {
+    background: var(--color-surface-50);
+    color: var(--color-surface-900);
+}
+
+@utility surface-canvas-dark {
+    background: var(--color-surface-950);
+    color: var(--color-surface-100);
+}

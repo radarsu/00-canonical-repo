@@ -1,0 +1,21 @@
+node_modules/
+dist/
+deploy/
+generated/
+.cache/
+.turbo/
+.angular/
+out-tsc/
+*.tsbuildinfo
+
+# generated runtime config (esbuild-bundled window.env)
+_apps/web/src/assets/js/env.js
+
+# env / secrets
+.env
+.env.local
+.env.*.local
+
+# editor / os
+.DS_Store
+*.log

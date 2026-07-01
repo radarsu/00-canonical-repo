@@ -1,0 +1,6 @@
+/* Design-system entry point. Order matters: tokens first, then the color ramps the semantic PrimeNG
+ * bridge (theme.ts) references, then component classes + utilities. Imported by the app's styles.css. */
+@import "./tokens.css";
+@import "./colors.css";
+@import "./components.css";
+@import "./utilities.css";
