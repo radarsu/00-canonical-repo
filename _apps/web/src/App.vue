@@ -1,2 +1,2 @@
-<!-- Root shell: the router renders the active page here (was Angular's <router-outlet />). -->
+<!-- Root shell: the router renders the active page here. -->
 <template><RouterView /></template>

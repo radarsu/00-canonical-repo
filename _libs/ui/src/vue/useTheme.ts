@@ -5,10 +5,9 @@ export type ColorScheme = "light" | "dark";
 const STORAGE_KEY = `ui-color-scheme`;
 const DARK_ATTRIBUTE = `data-mode`;
 
-/* Owns the active color scheme as a module-level singleton — the Vue equivalent of an Angular
- * `providedIn: root` service. Toggling flips the `data-mode` attribute on <html>, which is the selector
- * both the PrimeVue dark preset and the role tokens key off, so a single write recolors PrimeVue
- * components and Tailwind surfaces together. */
+/* Owns the active color scheme as a module-level singleton. Toggling flips the `data-mode` attribute on
+ * <html>, which is the selector both the PrimeVue dark preset and the role tokens key off, so a single write
+ * recolors PrimeVue components and Tailwind surfaces together. */
 
 const read = (): ColorScheme => {
     try {

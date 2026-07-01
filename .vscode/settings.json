@@ -26,7 +26,7 @@
         "icon.original.png": "icon-*.png, favicon.ico",
 
         // * Node.js
-        "package.json": ".editorconfig, .gitignore, .npmrc, .prettierrc.json, pnpm-workspace.yaml, pnpm-lock.yaml, README.md, docker-compose.yml, Dockerfile, turbo.json, commitlint.config.ts, .oxlintrc.json, .prettierignore, .env, .env.example"
+        "package.json": ".editorconfig, .gitignore, .npmrc, .prettierrc.json, pnpm-workspace.yaml, pnpm-lock.yaml, README.md, docker-compose.yml, Dockerfile, turbo.json, commitlint.config.ts, .oxlintrc.json, .prettierignore, .env, .env.example, CLAUDE.md, AGENTS.md"
     },
 
     // TitleBar with different color per repository.

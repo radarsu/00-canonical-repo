@@ -4,9 +4,9 @@ import { environment } from "../environments/environment";
 
 export type SessionUser = { id: string; email: string; name: string };
 
-// Thin wrapper over the Better Auth browser client, exposed as a module-level singleton (the Vue equivalent
-// of an Angular `providedIn: root` service). baseURL is the API origin (the client appends the default
-// /api/auth basePath); credentials: include so the session cookie is sent cross-origin.
+// Thin wrapper over the Better Auth browser client, exposed as a module-level singleton. baseURL is the API
+// origin (the client appends the default /api/auth basePath); credentials: include so the session cookie is
+// sent cross-origin.
 const client = createAuthClient({
     baseURL: environment.api.url,
     fetchOptions: { credentials: `include` },

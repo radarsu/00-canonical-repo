@@ -1,9 +1,32 @@
 {
+  "env": {
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "DISABLE_AUTOUPDATER": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_FEEDBACK_COMMAND": "1",
+    "DISABLE_TELEMETRY": "1",
+    "DO_NOT_TRACK": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "permissions": {
     "allow": [
-      "WebFetch(domain:cpojer.net)",
+      "Bash(*)",
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)",
+      "MultiEdit(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "WebSearch(*)",
       "WebFetch(domain:www.npmjs.com)",
       "WebFetch(domain:github.com)"
     ]
-  }
+  },
+  "autoMemoryEnabled": true,
+  "theme": "dark-daltonized",
+  "switchModelsOnFlag": false,
+  "effortLevel": "max"
 }

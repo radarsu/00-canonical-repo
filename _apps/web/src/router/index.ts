@@ -8,7 +8,7 @@ declare module "vue-router" {
 }
 
 // Gate the protected route on a live session: resolve it once (Better Auth cookie) and redirect to /login
-// when there's none. Ports the Angular authGuard (CanActivateFn) to a per-route navigation guard.
+// when there's none.
 const requireAuth = async (): Promise<boolean | RouteLocationRaw> => {
     const { user, refresh } = useAuth();
     const current = user.value ?? (await refresh());
@@ -37,7 +37,7 @@ export const router = createRouter({
     routes,
 });
 
-// Mirror Angular's per-route `title`.
+// Mirror each route's `title` into the browser tab.
 router.afterEach((to) => {
-    document.title = to.meta.title ? `${to.meta.title} · Safe Parking` : `Safe Parking`;
+    document.title = to.meta.title ? `${to.meta.title} · Canonical Repo` : `Canonical Repo`;
 });

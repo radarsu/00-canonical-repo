@@ -22,8 +22,8 @@ export default defineConfig({
         // Must stay 4701 — the API's CORS + Better Auth trust WEB_ORIGIN=https://localhost:4701.
         port: 4701,
         strictPort: true,
-        // The same committed dev cert the Angular dev-server used, so https:4701 → https:6480 shares a trust
-        // chain and the session cookie rides along with no mixed-content warnings.
+        // The same committed dev cert is used by the API and Vite, so https:4701 -> https:6480 shares a
+        // trust chain and the session cookie rides along with no mixed-content warnings.
         https: {
             cert: readFileSync(here("./node_modules/@app_/localhost-https/localhost.crt")),
             key: readFileSync(here("./node_modules/@app_/localhost-https/localhost.key")),

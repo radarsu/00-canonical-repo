@@ -21,6 +21,7 @@
     "scripts": {
         "build": "DATABASE_URL=postgresql://placeholder prisma generate --no-hints",
         "generate": "DATABASE_URL=postgresql://placeholder prisma generate --no-hints",
+        "reset": "prisma migrate reset",
         "migrate": "prisma migrate dev",
         "deploy": "prisma migrate deploy",
         "push": "prisma db push --accept-data-loss",
