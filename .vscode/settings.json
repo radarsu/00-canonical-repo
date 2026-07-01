@@ -1,13 +1,10 @@
 {
+    // Editor and explorer.
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.oxc": "explicit"
     },
-    "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-    "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-    "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-    "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
     "files.exclude": {
         "**/.cache": true,
         "**/.turbo": true,
@@ -15,6 +12,8 @@
         "**/generated": true,
         "**/out-tsc": true
     },
+    "window.title": "${folderName}",
+
     // File nesting.
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
@@ -28,5 +27,18 @@
 
         // * Node.js
         "package.json": ".editorconfig, .gitignore, .npmrc, .prettierrc.json, pnpm-workspace.yaml, pnpm-lock.yaml, README.md, docker-compose.yml, Dockerfile, turbo.json, commitlint.config.ts, .oxlintrc.json, .prettierignore, .env, .env.example"
-    }
+    },
+
+    // TitleBar with different color per repository.
+    "workbench.colorCustomizations": {
+        // Choose colors from 800-950 palette: https://tailwindcss.com/docs/customizing-colors
+        "titleBar.activeBackground": "#434200",
+        "titleBar.inactiveBackground": "#000000"
+    },
+
+    // Open SVG as text.
+    "workbench.editorAssociations": {
+        "*.svg": "default"
+    },
+    "workbench.tree.enableStickyScroll": false
 }

@@ -18,14 +18,21 @@ services:
             timeout: 5s
             retries: 10
 
-    # Optional local trace collector + UI. Not started by `db:up` (which names postgres) — run `pnpm trace:up`.
-    # Enable tracing by setting OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 in .env. UI: localhost:16686.
-    jaeger:
-        image: jaegertracing/jaeger:2.18.0
+    # Optional local trace backend + UI. Not started by `db:up` (which names postgres) — run `pnpm trace:up`.
+    # Enable tracing by setting OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 in .env. UI: localhost:8080.
+    signoz:
+        image: signoz/signoz-standalone:latest
+        privileged: true
         restart: unless-stopped
         ports:
-            - "16686:16686" # UI
+            - "8080:8080" # UI
+            - "4317:4317" # OTLP/gRPC
             - "4318:4318" # OTLP/HTTP
+        volumes:
+            - signoz-clickhouse:/var/lib/clickhouse
+            - signoz-data:/var/lib/signoz
 
 volumes:
     postgres-data:
+    signoz-clickhouse:
+    signoz-data:
