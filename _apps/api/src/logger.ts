@@ -1,8 +1,20 @@
+import { trace } from "@opentelemetry/api";
 import pino from "pino";
 import pretty from "pino-pretty";
 import type { Config } from "./config.js";
 
 export type Logger = pino.Logger;
+
+// Correlate logs with traces (OTel standard): stamp every record with the active span's ids. No-op when there
+// is no active span (tracing disabled or outside a request), so it's always safe to run.
+const otelTraceContext = (): Record<string, string> => {
+    const span = trace.getActiveSpan();
+    if (!span) {
+        return {};
+    }
+    const ctx = span.spanContext();
+    return { trace_id: ctx.traceId, span_id: ctx.spanId, trace_flags: ctx.traceFlags.toString(16).padStart(2, `0`) };
+};
 
 // Root pino logger, fed by the typed config (level + pretty). Mirrors the shared pino setup across the repos:
 // ISO timestamps, `message` as the message key, the standard `err` serializer, and `redact` so common secret
@@ -15,6 +27,7 @@ const options: pino.LoggerOptions = {
     formatters: {
         level: (label: string) => ({ level: label }),
     },
+    mixin: otelTraceContext,
     serializers: {
         err: pino.stdSerializers.err,
     },

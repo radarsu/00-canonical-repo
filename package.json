@@ -17,6 +17,8 @@
         "db:migrate": "pnpm --filter @app_/prisma run migrate",
         "db:deploy": "pnpm --filter @app_/prisma run deploy",
         "db:studio": "pnpm --filter @app_/prisma run studio",
+        "trace:up": "docker compose up -d --wait jaeger",
+        "trace:down": "docker compose stop jaeger",
         "deps:up": "pnpm --recursive update --latest",
         "diff:stat": "git diff HEAD --shortstat",
         "clean": "find . -type d \\( -name 'node_modules' -o -name '.cache' -o -name 'deploy' -o -name 'dist' -o -name '.turbo' -o -name '.angular' -o -name 'generated' -o -name 'out-tsc' \\) -prune -exec rm -rf '{}' +",

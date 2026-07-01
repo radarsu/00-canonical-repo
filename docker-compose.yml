@@ -18,5 +18,14 @@ services:
             timeout: 5s
             retries: 10
 
+    # Optional local trace collector + UI. Not started by `db:up` (which names postgres) — run `pnpm trace:up`.
+    # Enable tracing by setting OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 in .env. UI: localhost:16686.
+    jaeger:
+        image: jaegertracing/jaeger:2.18.0
+        restart: unless-stopped
+        ports:
+            - "16686:16686" # UI
+            - "4318:4318" # OTLP/HTTP
+
 volumes:
     postgres-data:

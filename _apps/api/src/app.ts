@@ -10,6 +10,7 @@ import type { Config } from "./config.js";
 import { buildOrpcContext, type OrpcContext } from "./context.js";
 import type { Logger } from "./logger.js";
 import { router } from "./router.js";
+import { createTracingHttpMiddleware } from "./tracing.js";
 import type { Prisma } from "./types.js";
 
 // Hono owns HTTP; oRPC owns the typed RPC surface. The two meet at the `${API_BASE_PATH}/*` catch-all, where
@@ -29,7 +30,11 @@ export const createApp = (config: Config, prisma: Prisma, logger: Logger): { app
 
     const app = new Hono<AppEnv>();
 
-    // First middleware: bind a per-request child logger (correlated by requestId), then log the completed
+    // Outermost: the OTel server span (@hono/otel). Registered first so the request logger and oRPC handlers
+    // run inside the active span — their pino mixin then stamps logs with the span's trace_id/span_id.
+    app.use(`*`, createTracingHttpMiddleware());
+
+    // Then bind a per-request child logger (correlated by requestId) and log the completed
     // request with method/path/status/duration. Skips /health to avoid liveness-probe noise.
     app.use(`*`, async (c, next) => {
         const requestLogger = logger.child({ requestId: randomUUID() });

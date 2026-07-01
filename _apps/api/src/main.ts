@@ -4,6 +4,11 @@ import { CONFIG_SECRETS, loadConfig } from "./config.js";
 import { mask } from "./log.js";
 import { createLogger } from "./logger.js";
 import { createPrisma } from "./prisma.js";
+import { startTracing } from "./tracing.js";
+
+// Standard OTEL_* vars come from the environment. The dev/start scripts pass `--env-file=../../.env` so the
+// root .env populates process.env under Bun (it only auto-loads .env from cwd); in prod they're real env vars.
+const tracing = startTracing();
 
 // Bun is the API runtime: it executes this TypeScript (and the source-first workspace libs) directly — no
 // build step in dev. `bun --watch` restarts on change. Bun.serve is the native server; it takes Hono's
@@ -34,6 +39,7 @@ const shutdown = async () => {
     logger.info(`shutting down`);
     await prisma.$disconnect();
     await server.stop();
+    await tracing?.shutdown();
     process.exit(0);
 };
 

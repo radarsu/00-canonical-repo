@@ -42,7 +42,15 @@ modules + UI). The lean 3-folder layout here is the starting point, not a ceilin
   Bun-safe) vs. single-line JSON for prod. A Hono middleware binds a per-request child logger (correlated by
   `requestId`) that flows onto the oRPC context, so every handler logs with request scope (`context.logger`);
   completed requests log method/path/status/duration. `redact` scrubs secret-ish fields; config secrets are
-  masked via `mask()`. Promote `logger.ts` to a shared `_backend/api-shared` if a second backend app appears.
+  masked via `mask()`. Promote `logger.ts`/`tracing.ts` to a shared `_backend/api-shared` if a second backend
+  app appears (the atlas pattern).
+- **Tracing — OpenTelemetry.** Off by default (zero overhead). Enable by setting `OTEL_EXPORTER_OTLP_ENDPOINT`
+  (+ optional `OTEL_SERVICE_NAME`) and running `pnpm trace:up` (bundled Jaeger, UI at http://localhost:16686).
+  `@hono/otel` emits a per-request SERVER span with W3C trace-context propagation and semantic-convention
+  `http.*` attributes ([_apps/api/src/tracing.ts](_apps/api/src/tracing.ts)); a manual `NodeTracerProvider` is
+  used because Bun can't monkey-patch for auto-instrumentation. The pino `mixin` stamps `trace_id`/`span_id` on
+  every request-scoped log, so logs and traces correlate. OTel keeps its **standard `OTEL_*` env contract**
+  (read directly by the SDK, not the purenv schema). `pnpm trace:down` stops Jaeger.
 - **Scripts naming.** Canonical verbs everywhere: `dev` (watch), `build` (artifact), `typecheck`, `lint`,
   `format`. Grouped infra is colon-namespaced: `db:up`/`db:down`, `db:migrate` (author a dev migration),
   `db:deploy` (apply committed migrations), `db:studio`, `deps:up`. Each layer's name matches its target —
