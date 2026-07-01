@@ -3,26 +3,26 @@
     "version": "0.0.0",
     "private": true,
     "type": "module",
-    "main": "dist/client.js",
-    "types": "dist/client.d.ts",
+    "main": "client.ts",
+    "types": "client.ts",
     "exports": {
         ".": {
-            "types": "./dist/client.d.ts",
-            "default": "./dist/client.js"
+            "types": "./client.ts",
+            "default": "./client.ts"
         }
     },
     "files": [
-        "dist",
+        "client.ts",
         "generated",
         "migrations",
         "schema.prisma",
         "prisma.config.ts"
     ],
     "scripts": {
-        "build": "rm -rf ./generated ./dist ./.cache && DATABASE_URL=postgresql://placeholder prisma generate --no-hints && tsc",
+        "build": "DATABASE_URL=postgresql://placeholder prisma generate --no-hints",
         "generate": "DATABASE_URL=postgresql://placeholder prisma generate --no-hints",
-        "migrate": "prisma migrate deploy",
-        "alter": "prisma migrate dev",
+        "migrate": "prisma migrate dev",
+        "deploy": "prisma migrate deploy",
         "push": "prisma db push --accept-data-loss",
         "studio": "prisma studio"
     },

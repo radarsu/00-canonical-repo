@@ -1,16 +1,14 @@
-/* Prisma is the one build-to-dist lib: the `prisma-client` generator emits TypeScript into ./generated,
- * so `build` runs `prisma generate` then `tsc` to compile both client.ts and the generated sources into
- * dist/ (consumed via the exports map). */
+/* Prisma is source-first like the other libs: consumers resolve types straight from client.ts (which
+ * re-exports ./generated), and Bun runs it directly — no dist. This config is editor-only (no script runs
+ * it): it makes opening the package resolve the generated client. `prisma generate` produces ./generated. */
 {
     "compilerOptions": {
         "baseUrl": "./",
         "exactOptionalPropertyTypes": false,
+        "noEmit": true,
         "noPropertyAccessFromIndexSignature": false,
-        "outDir": "./dist",
-        "rootDir": "./",
         "tsBuildInfoFile": "./.cache/tsbuildinfo"
     },
     "include": ["./client.ts", "./generated/**/*"],
-    "exclude": ["./dist/**/*"],
     "extends": "../../_tools/tsconfig/tsconfig.base.json"
 }
