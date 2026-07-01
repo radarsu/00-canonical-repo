@@ -17,16 +17,16 @@ import type { Prisma } from "./types.js";
 // the OpenAPI handler dispatches to the contract router with a freshly built per-request context.
 type AppEnv = { Variables: { logger: Logger } };
 
+const logUnexpectedError = (log: Logger, error: unknown): void => {
+    // oRPC "expected" errors (UNAUTHORIZED, NOT_FOUND, …) are control flow, not incidents — don't log them.
+    if (error instanceof ORPCError && error.code !== `INTERNAL_SERVER_ERROR`) {
+        return;
+    }
+    log.error({ err: error }, `unexpected error`);
+};
+
 export const createApp = (config: Config, prisma: Prisma, logger: Logger): { app: Hono<AppEnv>; auth: Auth } => {
     const auth = createAuth(config, prisma);
-
-    const logUnexpectedError = (log: Logger, error: unknown): void => {
-        // oRPC "expected" errors (UNAUTHORIZED, NOT_FOUND, …) are control flow, not incidents — don't log them.
-        if (error instanceof ORPCError && error.code !== `INTERNAL_SERVER_ERROR`) {
-            return;
-        }
-        log.error({ err: error }, `unexpected error`);
-    };
 
     const app = new Hono<AppEnv>();
 

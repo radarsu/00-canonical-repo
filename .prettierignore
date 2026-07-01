@@ -1,0 +1,24 @@
+# Generated / build output — never format.
+**/node_modules
+**/.cache
+**/.turbo
+**/.angular
+**/dist
+**/deploy
+**/generated
+**/out-tsc
+**/tmp
+pnpm-lock.yaml
+_apps/web/src/assets/js/env.js
+
+# Local tooling config, not project source.
+.claude
+
+# Formatting is intentionally scoped to JS / TS / JSON.
+# YAML, CSS, HTML and Markdown are left untouched (no auto-formatting).
+**/*.yaml
+**/*.yml
+**/*.css
+**/*.scss
+**/*.html
+**/*.md

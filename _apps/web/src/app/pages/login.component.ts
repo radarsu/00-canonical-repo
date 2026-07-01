@@ -13,9 +13,9 @@ import { AuthService } from "../core/auth.service";
     template: `
         <ui-page>
             <ui-card>
-                <h1 class="mb-4 text-xl font-semibold">{{ mode() === 'signin' ? 'Sign in' : 'Create account' }}</h1>
+                <h1 class="mb-4 text-xl font-semibold">{{ mode() === "signin" ? "Sign in" : "Create account" }}</h1>
                 <form class="flex flex-col gap-3" (ngSubmit)="submit()">
-                    @if (mode() === 'signup') {
+                    @if (mode() === "signup") {
                         <input pInputText placeholder="Name" [(ngModel)]="name" name="name" autocomplete="name" />
                     }
                     <input pInputText placeholder="Email" type="email" [(ngModel)]="email" name="email" autocomplete="email" />
@@ -26,7 +26,7 @@ import { AuthService } from "../core/auth.service";
                     <p-button type="submit" [label]="mode() === 'signin' ? 'Sign in' : 'Sign up'" [loading]="busy()" />
                 </form>
                 <button type="button" class="mt-3 text-sm text-primary-600 hover:underline" (click)="toggle()">
-                    {{ mode() === 'signin' ? 'Need an account? Sign up' : 'Have an account? Sign in' }}
+                    {{ mode() === "signin" ? "Need an account? Sign up" : "Have an account? Sign in" }}
                 </button>
             </ui-card>
         </ui-page>

@@ -6,7 +6,7 @@ DX tooling. Copy it to start a new project, or align an existing repo to it.
 
 Stack: **Bun** (API runtime) · **Hono + oRPC** (typed API) · **Better Auth** + **Prisma 7** (Postgres) ·
 **Angular 21** (zoneless, standalone, signals) + **PrimeNG 21** + **Tailwind 4** · **@puristic/env** (typed
-env) · **pnpm** (workspaces + catalog) · **Turbo** (orchestration) · **Biome** (lint + format).
+env) · **pnpm** (workspaces + catalog) · **Turbo** (orchestration) · **oxlint** (lint) + **Prettier** (format).
 
 ## Layout
 
@@ -55,8 +55,9 @@ modules + UI). The lean 3-folder layout here is the starting point, not a ceilin
   `format`. Grouped infra is colon-namespaced: `db:up`/`db:down`, `db:migrate` (author a dev migration),
   `db:deploy` (apply committed migrations), `db:studio`, `deps:up`. Each layer's name matches its target —
   `db:migrate` → prisma `migrate` (`prisma migrate dev`), `db:deploy` → prisma `deploy` (`prisma migrate deploy`).
-- **Style — Biome only.** `biome.json`: 4-space, 150 width, LF, backtick strings, organize-imports on. No
-  Prettier, no ESLint. Format: `pnpm format`; check: `pnpm lint`.
+- **Style — oxlint + Prettier.** `.oxlintrc.json`: strict native lint (correctness + suspicious + perf as
+  errors, `--deny-warnings`); `oxlint --fix` autofixes. `.prettierrc.json`: 4-space, 150 width, LF (scoped to
+  JS/TS/JSON). No ESLint. Format: `pnpm format`; lint: `pnpm lint`.
 - **Angular — zoneless.** `provideZonelessChangeDetection()`, standalone components, `OnPush`, signals. No
   `zone.js`. UI is PrimeNG themed through `provideUi()` with a Tailwind-bridged palette (one set of
   `--color-*` vars drives both systems — see `_libs/ui/src/styles`).
@@ -64,8 +65,8 @@ modules + UI). The lean 3-folder layout here is the starting point, not a ceilin
   into `assets/js/env.js`, loaded before bootstrap — one build artifact retargets via `$API_URL` at deploy.
 - **Commits.** Conventional Commits enforced by a native `.githooks/commit-msg` hook (commitlint), wired by
   the root `prepare` script (`core.hooksPath` — no husky/lefthook framework).
-- **Editor.** `.vscode/` recommends Biome/Angular/Prisma/Tailwind/purenv extensions and sets Biome as
-  formatter + organize-imports on save; `.editorconfig` mirrors the Biome rules.
+- **Editor.** `.vscode/` recommends Oxc/Prettier/Angular/Prisma/Tailwind/purenv extensions and sets Prettier as
+  formatter + oxlint fix-on-save; `.editorconfig` mirrors the Prettier rules.
 
 ## Getting started
 
@@ -97,7 +98,7 @@ It's idempotent (safe to re-run) and self-contained (docker + migrations + codeg
 ## Verify
 
 - `pnpm typecheck` — all packages type-check (Turbo builds prisma first).
-- `pnpm lint` — Biome clean.
+- `pnpm lint` — oxlint clean.
 - `pnpm build` — web emits `dist/`, api type-checks, prisma generates.
 - Edit a field in `_libs/api-contract/src/schemas.ts` → it surfaces immediately in `_apps/api` handlers and
   `_apps/web` calls (source-first, no rebuild).

@@ -1,6 +1,7 @@
 {
     "recommendations": [
-        "biomejs.biome",
+        "oxc.oxc-vscode",
+        "esbenp.prettier-vscode",
         "angular.ng-template",
         "prisma.prisma",
         "bradlc.vscode-tailwindcss",
