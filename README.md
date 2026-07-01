@@ -73,14 +73,14 @@ modules + UI). The lean 3-folder layout here is the starting point, not a ceilin
 ```bash
 pnpm install   # resolves catalog + workspace deps
 pnpm dev       # ONE command: ensures .env, starts Postgres, migrates, generates prisma,
-               # then runs API (https://localhost:6480) + web (https://localhost:47145)
+               # then runs API (https://localhost:6480) + web (https://localhost:4701)
 ```
 
 `pnpm dev` copies `.env.example → .env` on first run (a placeholder secret, fine for local dev). For a real
 secret set `BETTER_AUTH_SECRET` with `openssl rand -base64 32`. Stop Postgres with `pnpm db:down`. Trust
 `_tools/localhost-https/localhost-com-ca.crt` in your keychain once to drop the TLS warning.
 
-Then open https://localhost:47145 → create an account (email+password) → add/delete notes. The whole
+Then open https://localhost:4701 → create an account (email+password) → add/delete notes. The whole
 round-trip is typed from `_libs/api-contract`: change a route or schema there and both sides update with no
 rebuild.
 
@@ -90,7 +90,7 @@ rebuild.
 
 ```bash
 curl -k https://localhost:6480/health   # → {"status":"ok"} once up
-# web: https://localhost:47145
+# web: https://localhost:4701
 ```
 
 It's idempotent (safe to re-run) and self-contained (docker + migrations + codegen + both servers).

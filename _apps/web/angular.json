@@ -74,7 +74,7 @@
                     "defaultConfiguration": "development",
                     "options": {
                         "host": "localhost",
-                        "port": 47145,
+                        "port": 4701,
                         "ssl": true,
                         "sslCert": "./node_modules/@app_/localhost-https/localhost.crt",
                         "sslKey": "./node_modules/@app_/localhost-https/localhost.key"
