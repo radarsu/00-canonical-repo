@@ -14,5 +14,19 @@
         "**/dist": true,
         "**/generated": true,
         "**/out-tsc": true
+    },
+    // File nesting.
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        // * Environment.
+        ".env.local": ".env.local.template, .env.docker, .env.docker.template",
+
+        // * Formats
+        "*.ttf": "$(capture).eot, $(capture).otf, $(capture).woff, $(capture).woff2, $(capture).svg",
+        "icon.original.png": "icon-*.png, favicon.ico",
+
+        // * Node.js
+        "package.json": ".editorconfig, .gitignore, .npmrc, .prettierrc.json, pnpm-workspace.yaml, pnpm-lock.yaml, README.md, docker-compose.yml, Dockerfile, turbo.json, commitlint.config.ts, .oxlintrc.json, .prettierignore, .env, .env.example"
     }
 }

@@ -1,4 +1,4 @@
-name: safe-parking
+name: canonical-repo
 
 services:
     postgres:
