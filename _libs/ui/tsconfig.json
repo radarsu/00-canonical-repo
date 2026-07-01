@@ -1,5 +1,5 @@
 /* The UI lib is consumed directly from source (main/exports → ./src/index.ts); this config exists only
- * for standalone type-checking via `pnpm --filter @app_/ui typecheck`. */
+ * for standalone type-checking via `pnpm --filter @app_/ui typecheck` (vue-tsc handles the .vue SFCs). */
 {
     "compilerOptions": {
         "baseUrl": "./",
@@ -7,6 +7,6 @@
         "rootDir": "./src",
         "tsBuildInfoFile": "./.cache/tsbuildinfo"
     },
-    "include": ["./src/**/*"],
-    "extends": "@app_/tsconfig/tsconfig.angular.json"
+    "include": ["./src/**/*.ts", "./src/**/*.vue"],
+    "extends": "@app_/tsconfig/tsconfig.vue.json"
 }

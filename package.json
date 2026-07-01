@@ -23,7 +23,7 @@
         "trace:down": "docker compose stop jaeger",
         "deps:up": "pnpm --recursive update --latest",
         "diff:stat": "git diff HEAD --shortstat",
-        "clean": "find . -type d \\( -name 'node_modules' -o -name '.cache' -o -name 'deploy' -o -name 'dist' -o -name '.turbo' -o -name '.angular' -o -name 'generated' -o -name 'out-tsc' \\) -prune -exec rm -rf '{}' +",
+        "clean": "find . -type d \\( -name 'node_modules' -o -name '.cache' -o -name 'deploy' -o -name 'dist' -o -name '.turbo' -o -name 'generated' -o -name 'out-tsc' \\) -prune -exec rm -rf '{}' +",
         "prepare": "git rev-parse --git-dir > /dev/null 2>&1 && git config core.hooksPath .githooks || true"
     },
     "devDependencies": {

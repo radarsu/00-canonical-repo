@@ -1,17 +1,17 @@
-# safe-parking — monorepo template (Hono + oRPC + Angular)
+# safe-parking — monorepo template (Hono + oRPC + Vue)
 
 The **standard** for our repos: a small, buildable full-stack app that encodes the conventions every
 project should share — workspace layout, versioning, env management, source-first libs, scripts naming, and
 DX tooling. Copy it to start a new project, or align an existing repo to it.
 
 Stack: **Bun** (API runtime) · **Hono + oRPC** (typed API) · **Better Auth** + **Prisma 7** (Postgres) ·
-**Angular 21** (zoneless, standalone, signals) + **PrimeNG 21** + **Tailwind 4** · **@puristic/env** (typed
-env) · **pnpm** (workspaces + catalog) · **Turbo** (orchestration) · **oxlint** (lint) + **Prettier** (format).
+**Vue 3** (Composition API, SFCs) + **PrimeVue 4** + **Tailwind 4**, built with **Vite** · **@puristic/env**
+(typed env) · **pnpm** (workspaces + catalog) · **Turbo** (orchestration) · **oxlint** (lint) + **Prettier** (format).
 
 ## Layout
 
 ```
-_apps/    runnable apps       — api (Bun/Hono/oRPC), web (Angular)
+_apps/    runnable apps       — api (Bun/Hono/oRPC), web (Vue/Vite)
 _libs/    shared packages     — api-contract (source-first), ui (source-first), prisma (build-to-dist)
 _tools/   build/infra support — tsconfig (shared TS configs), localhost-https (dev TLS)
 ```
@@ -19,7 +19,7 @@ _tools/   build/infra support — tsconfig (shared TS configs), localhost-https 
 Every package is `@app_/<name>` and depends on siblings via `workspace:*`. The workspace glob is `_*/*`.
 
 **Scaling up.** When `_libs/` outgrows "pure + contract" packages, split by concern exactly as the larger
-repos do: `_backend/` (backend-only shared libs — loggers, service utils) and `_frontend/` (Angular feature
+repos do: `_backend/` (backend-only shared libs — loggers, service utils) and `_frontend/` (Vue feature
 modules + UI). The lean 3-folder layout here is the starting point, not a ceiling.
 
 ## Conventions
@@ -28,11 +28,13 @@ modules + UI). The lean 3-folder layout here is the starting point, not a ceilin
   `catalog:`; packages reference `catalog:`. Upgrade in one place. `.npmrc` sets `save-prefix=` so nothing
   drifts off the catalog.
 - **Source-first libs.** Every lib has **no build step** — its `main`/`exports` point at source (`./src/index.ts`,
-  or `./client.ts` for prisma). Bun runs the `.ts` directly; Angular resolves them via `tsconfig` `paths`.
-  Editing a contract is reflected in both API and web instantly, no rebuild. Their `build`/`typecheck` is just
-  `tsc --noEmit`. `prisma` is source-first too: `client.ts` re-exports its generated client and Bun runs it
-  directly — `build` is only `prisma generate` (generated code is git-ignored). Nothing emits, so there's no
-  composite `tsconfig.libs.json`; Turbo's `^build` ordering handles prisma's `generate` for consumers.
+  or `./client.ts` for prisma). Bun runs the `.ts` directly; Vite + vue-tsc resolve them via `tsconfig` `paths`
+  (mirrored by a `resolve.alias` in `vite.config.ts`). Editing a contract is reflected in both API and web
+  instantly, no rebuild. Their `build`/`typecheck` is just `tsc --noEmit` (`vue-tsc --noEmit` for the Vue `ui`
+  lib, so its `.vue` SFCs are type-checked). `prisma` is source-first too: `client.ts` re-exports its generated
+  client and Bun runs it directly — `build` is only `prisma generate` (generated code is git-ignored). Nothing
+  emits, so there's no composite `tsconfig.libs.json`; Turbo's `^build` ordering handles prisma's `generate`
+  for consumers.
 - **Typed env — @puristic/env.** One Zod schema in `_apps/api/src/config.ts` is the source of truth. Var
   names are derived by SCREAMING_SNAKE-casing the schema path (`api.port` → `API_PORT`). Sources merge
   `.env` < process env < CLI args. Secrets are tagged `.meta({ secret: true })` and masked in logs (`mask()`
@@ -56,16 +58,19 @@ modules + UI). The lean 3-folder layout here is the starting point, not a ceilin
   `db:deploy` (apply committed migrations), `db:studio`, `deps:up`. Each layer's name matches its target —
   `db:migrate` → prisma `migrate` (`prisma migrate dev`), `db:deploy` → prisma `deploy` (`prisma migrate deploy`).
 - **Style — oxlint + Prettier.** `.oxlintrc.json`: strict native lint (correctness + suspicious + perf as
-  errors, `--deny-warnings`); `oxlint --fix` autofixes. `.prettierrc.json`: 4-space, 150 width, LF (scoped to
-  JS/TS/JSON). No ESLint. Format: `pnpm format`; lint: `pnpm lint`.
-- **Angular — zoneless.** `provideZonelessChangeDetection()`, standalone components, `OnPush`, signals. No
-  `zone.js`. UI is PrimeNG themed through `provideUi()` with a Tailwind-bridged palette (one set of
-  `--color-*` vars drives both systems — see `_libs/ui/src/styles`).
+  errors, `--deny-warnings`), with the `vue` plugin so `.vue` script blocks are linted too; `oxlint --fix`
+  autofixes. `.prettierrc.json`: 4-space, 150 width, LF (scoped to JS/TS/JSON/Vue). No ESLint. Format:
+  `pnpm format`; lint: `pnpm lint`.
+- **Vue — Composition API.** `<script setup>` SFCs, `ref`/`computed` reactivity, `vue-router` (lazy routes +
+  a navigation guard), and composables for shared state (the `providedIn: root` singleton equivalent — see
+  `_apps/web/src/composables`). UI is PrimeVue themed through `installUi()` with a Tailwind-bridged palette
+  (one set of `--color-*` vars drives both systems — see `_libs/ui/src/styles`).
 - **Runtime web config.** `window.env` is bundled by esbuild from `environments/environment.{local,deployment}.ts`
-  into `assets/js/env.js`, loaded before bootstrap — one build artifact retargets via `$API_URL` at deploy.
+  into `assets/js/env.js` (Vite serves it from `public/`, copies it to `dist/` verbatim), loaded before the app
+  boots — one build artifact retargets via `$API_URL` (envsubst) at deploy, no rebuild.
 - **Commits.** Conventional Commits enforced by a native `.githooks/commit-msg` hook (commitlint), wired by
   the root `prepare` script (`core.hooksPath` — no husky/lefthook framework).
-- **Editor.** `.vscode/` recommends Oxc/Prettier/Angular/Prisma/Tailwind/purenv extensions and sets Prettier as
+- **Editor.** `.vscode/` recommends Oxc/Prettier/Vue/Prisma/Tailwind/purenv extensions and sets Prettier as
   formatter + oxlint fix-on-save; `.editorconfig` mirrors the Prettier rules.
 
 ## Getting started
@@ -97,8 +102,8 @@ It's idempotent (safe to re-run) and self-contained (docker + migrations + codeg
 
 ## Verify
 
-- `pnpm typecheck` — all packages type-check (Turbo builds prisma first).
+- `pnpm typecheck` — all packages type-check (Turbo builds prisma first; web/ui via `vue-tsc`).
 - `pnpm lint` — oxlint clean.
-- `pnpm build` — web emits `dist/`, api type-checks, prisma generates.
+- `pnpm build` — web emits `dist/` (Vite), api type-checks, prisma generates.
 - Edit a field in `_libs/api-contract/src/schemas.ts` → it surfaces immediately in `_apps/api` handlers and
   `_apps/web` calls (source-first, no rebuild).

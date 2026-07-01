@@ -2,14 +2,13 @@
 **/node_modules
 **/.cache
 **/.turbo
-**/.angular
 **/dist
 **/deploy
 **/generated
 **/out-tsc
 **/tmp
 pnpm-lock.yaml
-_apps/web/src/assets/js/env.js
+_apps/web/public/assets/js/env.js
 
 # Local tooling config, not project source.
 .claude

@@ -11,7 +11,6 @@
     "files.exclude": {
         "**/.cache": true,
         "**/.turbo": true,
-        "**/.angular": true,
         "**/dist": true,
         "**/generated": true,
         "**/out-tsc": true

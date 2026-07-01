@@ -3,17 +3,18 @@
     <head>
         <meta charset="utf-8" />
         <title>Safe Parking</title>
-        <base href="/" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!-- Runtime config: esbuild bundles environment.local|deployment.ts into this file, setting window.env
-             BEFORE the app boots (so environment.ts can read it synchronously). Git-ignored, per-build. -->
-        <script src="assets/js/env.js"></script>
+        <!-- Runtime config: esbuild bundles environment.local|deployment.ts into public/assets/js/env.js,
+             setting window.env BEFORE the app boots (so environment.ts can read it synchronously). Vite
+             copies public/ verbatim; $API_URL is substituted (envsubst) at deploy. Git-ignored, per-build. -->
+        <script src="/assets/js/env.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     </head>
     <body>
-        <app-root></app-root>
+        <div id="app"></div>
+        <script type="module" src="/src/main.ts"></script>
         <noscript>Please enable JavaScript to continue using this application.</noscript>
     </body>
 </html>

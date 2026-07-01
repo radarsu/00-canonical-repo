@@ -2,7 +2,7 @@
     "recommendations": [
         "oxc.oxc-vscode",
         "esbenp.prettier-vscode",
-        "angular.ng-template",
+        "Vue.volar",
         "prisma.prisma",
         "bradlc.vscode-tailwindcss",
         "puristic.env-manager",

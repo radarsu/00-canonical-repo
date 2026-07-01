@@ -2,24 +2,17 @@
     "name": "@app_/web",
     "version": "0.0.0",
     "private": true,
+    "type": "module",
     "files": [
         "dist"
     ],
     "scripts": {
-        "dev": "esbuild src/environments/environment.local.ts --bundle --target=es2024 --outfile=src/assets/js/env.js && ng serve",
-        "watch": "esbuild src/environments/environment.local.ts --bundle --target=es2024 --outfile=src/assets/js/env.js && ng serve",
-        "build": "ng build --configuration=production && esbuild src/environments/environment.deployment.ts --bundle --minify --target=es2024 --outfile=dist/browser/assets/js/env.js",
-        "typecheck": "tsc --noEmit -p tsconfig.app.json"
+        "dev": "esbuild src/environments/environment.local.ts --bundle --target=es2024 --outfile=public/assets/js/env.js && vite",
+        "watch": "esbuild src/environments/environment.local.ts --bundle --target=es2024 --outfile=public/assets/js/env.js && vite",
+        "build": "vue-tsc --noEmit -p tsconfig.app.json && vite build && esbuild src/environments/environment.deployment.ts --bundle --minify --target=es2024 --outfile=dist/assets/js/env.js",
+        "typecheck": "vue-tsc --noEmit -p tsconfig.app.json"
     },
     "dependencies": {
-        "@angular/animations": "catalog:",
-        "@angular/cdk": "catalog:",
-        "@angular/common": "catalog:",
-        "@angular/compiler": "catalog:",
-        "@angular/core": "catalog:",
-        "@angular/forms": "catalog:",
-        "@angular/platform-browser": "catalog:",
-        "@angular/router": "catalog:",
         "@app_/api-contract": "workspace:*",
         "@app_/localhost-https": "workspace:*",
         "@app_/ui": "workspace:*",
@@ -29,21 +22,22 @@
         "@primeuix/themes": "catalog:",
         "better-auth": "catalog:",
         "primeicons": "catalog:",
-        "primeng": "catalog:",
-        "rxjs": "catalog:",
+        "primevue": "catalog:",
         "tailwind-merge": "catalog:",
         "tslib": "catalog:",
+        "vue": "catalog:",
+        "vue-router": "catalog:",
         "zod": "catalog:"
     },
     "devDependencies": {
-        "@angular/build": "catalog:",
-        "@angular/cli": "catalog:",
-        "@angular/compiler-cli": "catalog:",
         "@app_/tsconfig": "workspace:*",
-        "@tailwindcss/postcss": "catalog:",
+        "@tailwindcss/vite": "catalog:",
         "@types/node": "catalog:",
+        "@vitejs/plugin-vue": "catalog:",
         "esbuild": "catalog:",
         "tailwindcss": "catalog:",
-        "typescript": "catalog:"
+        "typescript": "catalog:",
+        "vite": "catalog:",
+        "vue-tsc": "catalog:"
     }
 }

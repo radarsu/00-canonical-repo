@@ -1,5 +1,6 @@
-/* Establish the cascade-layer order BEFORE Tailwind/PrimeNG declare theirs, so `utilities` stays last and
- * Tailwind utility classes always beat PrimeNG component styles (see provideUi cssLayer order). */
+/* Establish the cascade-layer order BEFORE Tailwind/PrimeVue declare theirs, so `utilities` stays last and
+ * Tailwind utility classes always beat PrimeVue component styles (see installUi cssLayer order — the layer
+ * is still named `primeng` to keep this declaration and the PrimeVue cssLayer option in sync). */
 @layer theme, base, primeng, components, utilities;
 
 @import "tailwindcss";
@@ -10,4 +11,4 @@
 
 /* Scan the @app_/ui source for class names — it lives outside this app's tree, so Tailwind won't
  * auto-detect it. The app's own files are auto-detected. */
-@source "../../../_libs/ui/src/**/*.{ts,html}";
+@source "../../../_libs/ui/src/**/*.{ts,html,vue}";

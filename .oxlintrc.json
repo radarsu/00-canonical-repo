@@ -1,13 +1,14 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "plugins": ["typescript", "unicorn", "oxc", "import"],
+    "plugins": ["typescript", "unicorn", "oxc", "import", "vue"],
     "categories": {
         "correctness": "error",
         "suspicious": "error",
         "perf": "error"
     },
     "rules": {
-        "typescript/no-extraneous-class": ["error", { "allowWithDecorator": true }]
+        "typescript/no-extraneous-class": ["error", { "allowWithDecorator": true }],
+        "import/no-unassigned-import": ["error", { "allow": ["**/*.css"] }]
     },
     "env": {
         "node": true,
@@ -18,7 +19,6 @@
         "**/node_modules",
         "**/.cache",
         "**/.turbo",
-        "**/.angular",
         "**/dist",
         "**/deploy",
         "**/generated",

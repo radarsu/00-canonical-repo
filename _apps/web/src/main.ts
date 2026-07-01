@@ -1,12 +1,13 @@
-import { provideZonelessChangeDetection } from "@angular/core";
-import { bootstrapApplication } from "@angular/platform-browser";
-import { provideRouter } from "@angular/router";
-import { provideUi } from "@app_/ui";
-import { AppComponent } from "./app/app.component";
-import { APP_ROUTES } from "./app/app.routes";
+import { installUi } from "@app_/ui";
+import "primeicons/primeicons.css";
+import { createApp } from "vue";
+import App from "./App.vue";
+import { router } from "./router";
+import "./styles.css";
 
-// Zoneless (Angular 21 GA default for new apps): no zone.js polyfill, change detection driven by signals +
-// events. Components are OnPush and use signals throughout — see the notes/login pages.
-bootstrapApplication(AppComponent, {
-    providers: [provideZonelessChangeDetection(), provideRouter(APP_ROUTES), provideUi()],
-}).catch((error: unknown) => console.error(error));
+// Composition API + a single design-system plugin. No zone.js / providers ceremony: the router and PrimeVue
+// (via installUi) are the only app-wide wiring; state lives in composables (see composables/).
+const app = createApp(App);
+app.use(router);
+installUi(app);
+app.mount("#app");

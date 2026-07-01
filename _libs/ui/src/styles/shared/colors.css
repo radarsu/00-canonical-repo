@@ -1,5 +1,5 @@
 /* The single palette. Declared in @theme so Tailwind emits BOTH the utilities (bg-primary-500,
- * text-surface-700, …) AND the --color-*-* CSS variables that theme.ts points PrimeNG's tokens at —
+ * text-surface-700, …) AND the --color-*-* CSS variables that theme.ts points PrimeVue's tokens at —
  * one source of color for both systems. Swap these to rebrand everything at once. */
 @theme {
     --color-primary-50: #eff6ff;

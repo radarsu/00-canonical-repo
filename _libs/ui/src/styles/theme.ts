@@ -1,10 +1,10 @@
 import { definePreset } from "@primeuix/themes";
 import Aura from "@primeuix/themes/aura";
 
-/* The bridge that makes Tailwind and PrimeNG one system: PrimeNG's `--p-*` design tokens are pointed at
+/* The bridge that makes Tailwind and PrimeVue one system: PrimeVue's `--p-*` design tokens are pointed at
  * the SAME CSS variables that drive the Tailwind utilities (defined in styles/shared/colors.css). Change a
  * palette there and both worlds update together. Both color schemes are defined so light/dark is a runtime
- * toggle (see ThemeService), not a rebuild. */
+ * toggle (see useTheme), not a rebuild. */
 const ramp = (name: string) => ({
     50: `var(--color-${name}-50)`,
     100: `var(--color-${name}-100)`,

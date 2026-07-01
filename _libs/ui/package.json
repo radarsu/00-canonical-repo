@@ -13,21 +13,19 @@
         "./styles/*": "./src/styles/*"
     },
     "scripts": {
-        "build": "tsc --noEmit",
-        "typecheck": "tsc --noEmit"
+        "build": "vue-tsc --noEmit",
+        "typecheck": "vue-tsc --noEmit"
     },
     "dependencies": {
-        "@angular/animations": "catalog:",
-        "@angular/common": "catalog:",
-        "@angular/core": "catalog:",
-        "@angular/platform-browser": "catalog:",
         "@primeuix/themes": "catalog:",
-        "primeng": "catalog:",
+        "primevue": "catalog:",
         "tailwind-merge": "catalog:",
-        "tslib": "catalog:"
+        "tslib": "catalog:",
+        "vue": "catalog:"
     },
     "devDependencies": {
         "@app_/tsconfig": "workspace:*",
-        "typescript": "catalog:"
+        "typescript": "catalog:",
+        "vue-tsc": "catalog:"
     }
 }

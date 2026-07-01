@@ -4,12 +4,11 @@ deploy/
 generated/
 .cache/
 .turbo/
-.angular/
 out-tsc/
 *.tsbuildinfo
 
-# generated runtime config (esbuild-bundled window.env)
-_apps/web/src/assets/js/env.js
+# generated runtime config (esbuild-bundled window.env; served from Vite's public/ dir)
+_apps/web/public/assets/js/env.js
 
 # env / secrets
 .env
