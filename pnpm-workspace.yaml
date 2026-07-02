@@ -78,7 +78,7 @@ syncInjectedDepsAfterScripts:
   - build
 
 # pnpm downloads + uses this exact Node for all scripts, so every contributor runs the same runtime.
-useNodeVersion: 24.14.0
+useNodeVersion: 24.18.0
 
 minimumReleaseAgeExclude:
   - '@puristic/env@1.5.0'
