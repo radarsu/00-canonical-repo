@@ -1,0 +1,65 @@
+---
+import "../styles/global.css";
+
+// Edit this page — it's the whole landing template. Add sections, wire a form, drop in your brand. The dev
+// server previews live at <app-id>.preview.<zone> inside the intentic sandbox.
+const nav = [
+    { label: "Product", href: "#product" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Docs", href: "#docs" },
+];
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Landing — built with intentic</title>
+        <meta name="description" content="An opinionated Astro + Tailwind landing page, scaffolded into your monorepo." />
+    </head>
+    <body class="min-h-dvh bg-neutral-950 text-neutral-100 antialiased">
+        <header class="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
+            <span class="text-lg font-semibold tracking-tight">Acme</span>
+            <nav class="flex items-center gap-6 text-sm text-neutral-400">
+                {nav.map((item) => <a href={item.href} class="transition hover:text-neutral-100">{item.label}</a>)}
+            </nav>
+        </header>
+
+        <main class="mx-auto max-w-5xl px-6">
+            <section id="product" class="py-24 text-center sm:py-32">
+                <p class="mb-4 text-sm font-medium uppercase tracking-widest text-indigo-400">Ship faster</p>
+                <h1 class="mx-auto max-w-3xl text-balance text-4xl font-bold tracking-tight sm:text-6xl">
+                    A landing page that's ready the moment you add it.
+                </h1>
+                <p class="mx-auto mt-6 max-w-xl text-pretty text-lg text-neutral-400">
+                    Astro + Tailwind, scaffolded straight into your pnpm + turbo monorepo. Edit this file and watch it live.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-3">
+                    <a href="#pricing" class="rounded-lg bg-indigo-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                        Get started
+                    </a>
+                    <a href="#docs" class="rounded-lg px-5 py-3 text-sm font-semibold text-neutral-300 ring-1 ring-neutral-700 transition hover:ring-neutral-500">
+                        Read the docs
+                    </a>
+                </div>
+            </section>
+
+            <section id="pricing" class="grid gap-6 border-t border-neutral-800 py-20 sm:grid-cols-3">
+                {
+                    ["Fast", "Typed", "Yours"].map((title, i) => (
+                        <div class="rounded-xl bg-neutral-900/60 p-6 ring-1 ring-neutral-800">
+                            <div class="mb-3 text-sm font-semibold text-indigo-400">0{i + 1}</div>
+                            <h3 class="text-lg font-semibold">{title}</h3>
+                            <p class="mt-2 text-sm text-neutral-400">Replace this card with a real feature, plan, or testimonial.</p>
+                        </div>
+                    ))
+                }
+            </section>
+        </main>
+
+        <footer id="docs" class="mx-auto max-w-5xl border-t border-neutral-800 px-6 py-10 text-sm text-neutral-500">
+            © Acme. Built with Astro on intentic.
+        </footer>
+    </body>
+</html>

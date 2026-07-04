@@ -11,6 +11,9 @@ allowBuilds:
   lmdb: false
   msgpackr-extract: false
   prisma: true
+  # Astro's image service. The landing template ships no <Image>, so skip the native build; flip to true if you
+  # add image optimization.
+  sharp: false
   vue-demi: true
 
 # Single source of truth for dependency versions. Packages reference `catalog:` instead of a literal
@@ -67,6 +70,10 @@ catalog:
   primevue: 4.5.5
   tailwind-merge: 3.6.0
   tailwindcss: 4.3.1
+  # Landing pages (Astro)
+  '@astrojs/check': 0.9.4
+  '@tailwindcss/postcss': 4.3.1
+  astro: 6.3.1
 
 # zod is a transitive dep of many packages; pin one version tree so contracts + validators agree.
 overrides:

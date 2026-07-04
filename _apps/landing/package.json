@@ -1,0 +1,21 @@
+{
+    "name": "@app_/landing",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "astro dev --port ${PORT:-4321}",
+        "build": "astro build",
+        "preview": "astro preview",
+        "typecheck": "astro check"
+    },
+    "dependencies": {
+        "@tailwindcss/postcss": "catalog:",
+        "astro": "catalog:",
+        "tailwindcss": "catalog:"
+    },
+    "devDependencies": {
+        "@astrojs/check": "catalog:",
+        "typescript": "catalog:"
+    }
+}
