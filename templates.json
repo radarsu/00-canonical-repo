@@ -21,13 +21,16 @@
             "label": "Full-stack (Vue + Hono + oRPC)",
             "description": "Vue 3 SPA + Hono/oRPC API + Prisma, one deployable app.",
             "instance": ["_apps/api", "_apps/web", "_libs/api-contract", "_libs/prisma"],
-            "preview": { "dev": "turbo run dev --filter=\"@app_/{name}-*\"", "port": 4701 }
+            "previews": [
+                { "package": "web", "dev": "pnpm --filter {pkg} dev", "port": 4701, "env": { "API_URL": "{previewUrl:api}" } },
+                { "package": "api", "dev": "pnpm --filter {pkg} dev", "port": 6480, "env": { "WEB_ORIGIN": "{previewUrl:web}" } }
+            ]
         },
         "landing": {
             "label": "Landing page (Astro)",
             "description": "Static marketing site (Astro + Tailwind).",
             "instance": ["_apps/landing"],
-            "preview": { "dev": "turbo run dev --filter=\"@app_/{name}\"", "port": 4321 }
+            "previews": [{ "package": "landing", "dev": "pnpm --filter {pkg} dev", "port": 4321 }]
         }
     }
 }
