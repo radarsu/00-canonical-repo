@@ -56,8 +56,8 @@ openssl rand -base64 32
 - `pnpm check` - typecheck, lint, and format check.
 - `pnpm build` - run package builds through Turbo.
 - `pnpm db:up` / `pnpm db:down` - start or stop local Postgres.
-- `pnpm db:migrate` - author and apply a development migration.
-- `pnpm db:deploy` - apply committed migrations.
+- `pnpm db:migrate:dev` - author and apply a development migration.
+- `pnpm db:migrate:deploy` - apply committed migrations.
 - `pnpm db:generate` - regenerate the Prisma client.
 - `pnpm db:studio` - open Prisma Studio.
 - `pnpm trace:up` / `pnpm trace:down` - start or stop the optional local tracing backend.

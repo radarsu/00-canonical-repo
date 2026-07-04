@@ -9,7 +9,7 @@ generator client {
 
 // ---------------------------------------------------------------------------
 // Better Auth core tables. Regenerate after changing auth plugins/options with
-// `npx @better-auth/cli generate`, then create a migration (pnpm db:migrate).
+// `npx @better-auth/cli generate`, then create a migration (pnpm db:migrate:dev).
 // ---------------------------------------------------------------------------
 
 model User {
