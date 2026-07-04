@@ -19,8 +19,9 @@ export default defineConfig({
     },
     server: {
         host: "localhost",
-        // Must stay 4701 — the API's CORS + Better Auth trust WEB_ORIGIN=https://localhost:4701.
-        port: 4701,
+        // Defaults to 4701 for standalone local dev (the API's CORS + Better Auth trust WEB_ORIGIN there); the
+        // intentic sandbox injects PORT so multiple app instances get distinct ports behind the preview proxy.
+        port: Number(process.env.PORT) || 4701,
         strictPort: true,
         // The same committed dev cert is used by the API and Vite, so https:4701 -> https:6480 shares a
         // trust chain and the session cookie rides along with no mixed-content warnings.
