@@ -17,14 +17,17 @@
     ],
     "shared": ["_tools/tsconfig", "_tools/localhost-https", "_libs/ui"],
     "templates": {
-        "full-stack": {
-            "label": "Full-stack (Vue + Hono + oRPC)",
-            "description": "Vue 3 SPA + Hono/oRPC API + Prisma, one deployable app.",
-            "instance": ["_apps/api", "_apps/web", "_libs/api-contract", "_libs/prisma"],
-            "previews": [
-                { "package": "web", "dev": "pnpm --filter {pkg} dev", "port": 4701, "env": { "API_URL": "{previewUrl:api}" } },
-                { "package": "api", "dev": "pnpm --filter {pkg} dev", "port": 6480, "env": { "WEB_ORIGIN": "{previewUrl:web}" } }
-            ]
+        "api": {
+            "label": "API (Hono)",
+            "description": "Hono + oRPC API on Bun, with Prisma and Better Auth.",
+            "instance": ["_apps/api", "_libs/api-contract", "_libs/prisma"],
+            "previews": [{ "package": "api", "dev": "pnpm --filter {pkg} dev", "port": 6480, "env": { "API_PORT": "{port}", "WEB_ORIGIN": "{previewUrl:web}" } }]
+        },
+        "web": {
+            "label": "Web app (Vue)",
+            "description": "Vue 3 SPA (Vite + PrimeVue + TanStack Query).",
+            "instance": ["_apps/web", "_libs/api-contract"],
+            "previews": [{ "package": "web", "dev": "pnpm --filter {pkg} dev", "port": 4701, "env": { "API_URL": "{previewUrl:api}" } }]
         },
         "landing": {
             "label": "Landing page (Astro)",
