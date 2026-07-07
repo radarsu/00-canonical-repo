@@ -52,6 +52,8 @@ const definition = {
     sources: [envFile(rootEnv), env(), cliArgs()],
 } satisfies ConfigDefinition<typeof configSchema>;
 
+export default definition;
+
 export type Config = z.infer<typeof configSchema>;
 
 // Dotted paths of secret fields — pass to mask() before logging the config.
