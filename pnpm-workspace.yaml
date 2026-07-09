@@ -7,6 +7,8 @@ allowBuilds:
   '@parcel/watcher': false
   '@prisma/client': true
   '@prisma/engines': true
+  # The API runtime, installed from npm; its postinstall links the platform binary into node_modules/.bin.
+  bun: true
   esbuild: true
   lmdb: false
   msgpackr-extract: false
@@ -32,6 +34,8 @@ catalog:
   '@types/bun': 1.3.14
   # @types/node tracks the Node 24 runtime (see useNodeVersion below).
   '@types/node': 24.13.2
+  # The API runtime (Bun.serve + `bun --watch`). Pinned in lockstep with @types/bun.
+  bun: 1.3.14
   esbuild: 0.28.1
   oxlint: 1.72.0
   prettier: 3.9.4
