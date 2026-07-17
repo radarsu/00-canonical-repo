@@ -8,10 +8,11 @@ declare module "vue-router" {
 }
 
 // Gate the protected route on a live session: resolve it once (Better Auth cookie) and redirect to /login
-// when there's none.
+// when there's none. An unreachable API counts as signed-out — a rejected guard would abort navigation and
+// leave a blank screen, while /login renders client-side and surfaces errors on submit.
 const requireAuth = async (): Promise<boolean | RouteLocationRaw> => {
     const { user, refresh } = useAuth();
-    const current = user.value ?? (await refresh());
+    const current = user.value ?? (await refresh().catch(() => null));
     return current ? true : `/login`;
 };
 
