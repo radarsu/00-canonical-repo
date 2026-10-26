@@ -11,8 +11,8 @@ WORKDIR /app
 COPY . /app
 # Development binds loopback; a container binds every interface so a proxy in a sibling container reaches it. TLS is
 # terminated by that proxy.
-ENV NODE_ENV=production API_HOST=0.0.0.0 API_PORT=6480
-EXPOSE 6480
+ENV NODE_ENV=production API_HOST=0.0.0.0 API_PORT=6580
+EXPOSE 6580
 # Before serving: apply the pending migrations, then refuse to boot while the live schema differs from this build's (an
 # edited applied migration, or drift made by hand), which migration bookkeeping alone does not notice. Shell form for the
 # `&&` chain (hence the JSONArgsRecommended skip on line 1); `exec` makes bun PID 1, so the deployment's SIGTERM reaches

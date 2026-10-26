@@ -25,7 +25,7 @@
                 {
                     "package": "api",
                     "dev": "pnpm --filter {pkg} dev",
-                    "port": 6480,
+                    "port": 6580,
                     "env": { "API_PORT": "{port}", "WEB_ORIGIN": "{previewUrl:web}" }
                 }
             ]
@@ -34,7 +34,7 @@
             "label": "Web app (Vue)",
             "description": "Vue 3 SPA (Vite + Vue Router + TanStack Query) on the api's oRPC contract.",
             "instance": ["_apps/web", "_libs/api-contract"],
-            "previews": [{ "package": "web", "dev": "pnpm --filter {pkg} dev", "port": 4701, "env": { "API_URL": "{previewUrl:api}" } }]
+            "previews": [{ "package": "web", "dev": "pnpm --filter {pkg} dev", "port": 4801, "env": { "API_URL": "{previewUrl:api}" } }]
         }
     }
 }

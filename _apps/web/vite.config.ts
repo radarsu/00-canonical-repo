@@ -5,7 +5,7 @@ import { defaultClientConditions, defineConfig, type ServerOptions } from "vite"
 
 // A preview proxy (templates.json `previews`) injects PORT, fronts this server with its own TLS and reaches it under a
 // host name of its own: behind it, bind every interface, accept any Host and serve plain http. Standalone, serve
-// https://localhost:4701 (the origin the API's WEB_ORIGIN trusts) with the per-user dev certificate `pnpm install`
+// https://localhost:4801 (the origin the API's WEB_ORIGIN trusts) with the per-user dev certificate `pnpm install`
 // mints, so the page can call the https API without mixed content.
 const port = process.env[`PORT`];
 
@@ -16,7 +16,7 @@ const serverOptions = (command: `build` | `serve`): ServerOptions => {
     }
     return {
         host: `localhost`,
-        port: 4701,
+        port: 4801,
         strictPort: true,
         ...(command === `serve` && { https: { cert: readFileSync(LEAF_CRT), key: readFileSync(LEAF_KEY) } }),
     };

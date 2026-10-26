@@ -17,7 +17,7 @@ const configSchema = z.object({
     webOrigin: z.url(),
     api: z
         .object({
-            port: z.coerce.number().int().positive().default(6480),
+            port: z.coerce.number().int().positive().default(6580),
             // Loopback in development; the image binds every interface so a proxy in another container can reach it.
             host: z.string().default(`127.0.0.1`),
             // TLS key and certificate paths. Empty outside production falls back to the per-user development pair

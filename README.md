@@ -20,8 +20,8 @@ pnpm cert:trust  # once per machine: trust that certificate in the OS and browse
 pnpm dev         # Postgres up, migrations applied, api + web through turbo
 ```
 
-- Web: `https://localhost:4701`
-- API health: `https://localhost:6480/health`
+- Web: `https://localhost:4801`
+- API health: `https://localhost:6580/health`
 
 ## Layout
 
@@ -85,8 +85,8 @@ A library's `exports` map lists an `@app_/src` condition ahead of `types` and `d
 
 ```sh
 REGISTRIES=local PUSH=0 pnpm docker:release
-docker run --rm -p 6480:6480 -e DATABASE_URL=… -e WEB_ORIGIN=http://localhost:8080 local/api
-docker run --rm -p 8080:80 -e API_URL=http://localhost:6480 local/web
+docker run --rm -p 6580:6580 -e DATABASE_URL=… -e WEB_ORIGIN=http://localhost:8180 local/api
+docker run --rm -p 8180:80 -e API_URL=http://localhost:6580 local/web
 ```
 
 ### Local HTTPS
