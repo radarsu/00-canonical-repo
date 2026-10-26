@@ -1,0 +1,20 @@
+# Generated / build output — never format.
+**/node_modules
+**/.cache
+**/.turbo
+**/dist
+**/generated
+**/out-tsc
+**/tmp
+**/assets/js/env.js
+pnpm-lock.yaml
+
+# Local tooling config, not project source.
+.claude
+
+# Formatting is intentionally scoped to JS / TS / JSON / Vue.
+**/*.yaml
+**/*.yml
+**/*.css
+**/*.html
+**/*.md

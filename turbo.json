@@ -1,0 +1,45 @@
+{
+    "$schema": "https://turborepo.com/schema.json",
+    "ui": "tui",
+    // Turbo 2's envMode is `strict`: a task does NOT inherit the ambient environment, only Turbo's system defaults plus
+    // what `env` (hashed) and `passThroughEnv` (value kept out of the cache key) name. A variable a task reads and this
+    // file does not list is invisible to it.
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", "generated/**"]
+        },
+        // Type-checks each package INCLUDING its tests, which `build` cannot: an emitting package excludes *.test.ts from
+        // dist. Workspace imports resolve to source (@app_/src), so `^build` is here for generated code (Prisma's client).
+        "typecheck": {
+            "dependsOn": ["^build"],
+            "outputs": []
+        },
+        "test": {
+            "dependsOn": ["^build"],
+            "outputs": [],
+            // A run on CI must never replay a local one, and vice versa.
+            "env": ["CI"]
+        },
+        // PORT, the API_* and WEB_* names are what a preview proxy (templates.json `previews`) injects; XDG_DATA_HOME and
+        // LOCALAPPDATA locate the per-user dev certificate (_tools/localhost-https/paths.mjs).
+        "dev": {
+            "dependsOn": ["^build"],
+            "cache": false,
+            "persistent": true,
+            "passThroughEnv": ["PORT", "API_PORT", "API_URL", "WEB_ORIGIN", "XDG_DATA_HOME", "LOCALAPPDATA"]
+        },
+        "start": {
+            "dependsOn": ["build"],
+            "cache": false,
+            "persistent": true,
+            "passThroughEnv": ["NODE_ENV", "DATABASE_URL", "DATABASE_POOL_MAX", "WEB_ORIGIN", "API_PORT", "API_HOST", "LOG_LEVEL", "LOG_PRETTY"]
+        },
+        // _tools/scripts/docker-release.sh; Turbo hands each task its own TURBO_HASH, which tags the image by content.
+        "docker:release": {
+            "dependsOn": ["build"],
+            "cache": false,
+            "passThroughEnv": ["REGISTRIES", "TAGS", "PUSH", "GITHUB_SHA", "RUNNER_TEMP", "DOCKER_HOST", "DOCKER_TLS_VERIFY", "DOCKER_CERT_PATH"]
+        }
+    }
+}

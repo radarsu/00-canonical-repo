@@ -1,0 +1,36 @@
+{
+    "name": "@app_/prisma",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": {
+            "@app_/src": "./client.ts",
+            "types": "./dist/client.d.ts",
+            "default": "./dist/client.js"
+        }
+    },
+    "files": [
+        "dist",
+        "migrations",
+        "schema.prisma",
+        "prisma.config.ts"
+    ],
+    "scripts": {
+        "build": "DATABASE_URL=postgresql://placeholder prisma generate --no-hints && tsc --build",
+        "db:up": "docker compose up -d --wait postgres && prisma migrate deploy",
+        "migrate:dev": "prisma migrate dev",
+        "migrate:deploy": "prisma migrate deploy",
+        "studio": "prisma studio"
+    },
+    "dependencies": {
+        "@app_/constants": "workspace:*",
+        "@prisma/client": "catalog:",
+        "prisma": "catalog:"
+    },
+    "devDependencies": {
+        "@app_/tsconfig": "workspace:*",
+        "@types/node": "catalog:",
+        "typescript": "catalog:"
+    }
+}

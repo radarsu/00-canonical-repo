@@ -1,0 +1,9 @@
+#!/bin/sh
+# Checks the message against Conventional Commits and never refuses the commit: what commitlint finds is printed for
+# whoever commits, and the commit goes on. Wired by the root `prepare` script (core.hooksPath=.githooks).
+#
+# Runs the INSTALLED binary through node, not `bunx`/`npx`, which re-resolve the package on every commit and are not on
+# PATH everywhere. Skips quietly until dependencies are installed.
+[ -x node_modules/.bin/commitlint ] || exit 0
+node_modules/.bin/commitlint --edit "$1" || echo "commit-msg: the message above does not follow the convention; committed anyway" >&2
+exit 0

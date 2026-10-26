@@ -1,0 +1,12 @@
+/* Type-checks the package's tests along with its source; `build` excludes them from dist. */
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "composite": false,
+        "declaration": false,
+        "declarationMap": false,
+        "noEmit": true,
+        "tsBuildInfoFile": "./.cache/tsbuildinfo-typecheck"
+    },
+    "exclude": []
+}

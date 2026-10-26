@@ -1,0 +1,29 @@
+{
+    "name": "@app_/api-contract",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": {
+            "@app_/src": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc --build",
+        "typecheck": "bun check -p tsconfig.test.json"
+    },
+    "dependencies": {
+        "@orpc/contract": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@app_/tsconfig": "workspace:*",
+        "bun": "catalog:",
+        "typescript": "catalog:"
+    }
+}

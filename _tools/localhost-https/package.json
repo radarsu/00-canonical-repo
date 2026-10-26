@@ -1,0 +1,16 @@
+{
+    "name": "@app_/localhost-https",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        "./paths": {
+            "types": "./paths.d.ts",
+            "default": "./paths.mjs"
+        }
+    },
+    "scripts": {
+        "prepare": "node generate.mjs",
+        "trust": "node trust.mjs"
+    }
+}

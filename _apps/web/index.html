@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>App</title>
+        <!-- Runtime config, before the app: esbuild bundles src/environments/environment.{local,deployment}.ts into
+             assets/js/env.js, and the image's entrypoint inlines it in place of this exact tag. -->
+        <script src="/assets/js/env.js"></script>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>

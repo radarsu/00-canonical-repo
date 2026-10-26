@@ -1,0 +1,29 @@
+/* The strict base every package extends. `customConditions` resolves a workspace package to its `src/` through the
+ * `@app_/src` export condition, so a typecheck reads current source without building its dependencies first. */
+{
+    "compilerOptions": {
+        "composite": true,
+        "customConditions": ["@app_/src"],
+        "declaration": true,
+        "declarationMap": true,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "incremental": true,
+        "isolatedModules": true,
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "newLine": "lf",
+        "noEmitOnError": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "removeComments": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "target": "ES2024",
+        "useDefineForClassFields": true
+    }
+}

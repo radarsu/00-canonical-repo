@@ -1,0 +1,3 @@
+# Shell scripts are LF in every checkout: a Windows runner with core.autocrlf otherwise hands bash a script that fails on
+# its first `\r` (`set: pipefail\r: invalid option name`).
+*.sh text eol=lf

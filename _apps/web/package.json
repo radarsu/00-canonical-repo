@@ -1,0 +1,31 @@
+{
+    "name": "@app_/web",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "esbuild src/environments/environment.local.ts --bundle --target=es2024 --define:__API_URL__=\\\"${API_URL:-https://localhost:6480}\\\" --outfile=public/assets/js/env.js && vite",
+        "build": "vite build && esbuild src/environments/environment.deployment.ts --bundle --minify --target=es2024 --outfile=dist/assets/js/env.js",
+        "typecheck": "vue-tsc --noEmit",
+        "docker:release": "bash ../../_tools/scripts/docker-release.sh"
+    },
+    "dependencies": {
+        "@app_/api-contract": "workspace:*",
+        "@orpc/client": "catalog:",
+        "@orpc/contract": "catalog:",
+        "@orpc/openapi-client": "catalog:",
+        "@tanstack/vue-query": "catalog:",
+        "vue": "catalog:",
+        "vue-router": "catalog:"
+    },
+    "devDependencies": {
+        "@app_/localhost-https": "workspace:*",
+        "@app_/tsconfig": "workspace:*",
+        "@types/node": "catalog:",
+        "@vitejs/plugin-vue": "catalog:",
+        "esbuild": "catalog:",
+        "typescript": "catalog:typescript6",
+        "vite": "catalog:",
+        "vue-tsc": "catalog:"
+    }
+}

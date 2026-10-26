@@ -1,0 +1,11 @@
+{
+    "extends": "@app_/tsconfig/tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "tsBuildInfoFile": "./.cache/tsbuildinfo",
+        "types": []
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["./src/**/*.test.ts"]
+}

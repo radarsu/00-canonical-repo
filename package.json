@@ -1,0 +1,42 @@
+{
+    "name": "@app_/root",
+    "version": "0.0.0",
+    "private": true,
+    "license": "UNLICENSED",
+    "scripts": {
+        "dev": "pnpm db:up && turbo run dev",
+        "build": "turbo run build",
+        "typecheck": "turbo run typecheck",
+        "test": "turbo run test",
+        "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test",
+        "lint": "oxlint --deny-warnings",
+        "lint:fix": "oxlint --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "db:up": "pnpm --filter @app_/prisma db:up",
+        "db:down": "docker compose down",
+        "db:reset": "docker compose down -v && pnpm db:up",
+        "db:migrate": "pnpm --filter @app_/prisma migrate:dev",
+        "db:studio": "pnpm --filter @app_/prisma studio",
+        "docker:release": "turbo run docker:release",
+        "cert:trust": "pnpm --filter @app_/localhost-https trust",
+        "clear": "node _tools/scripts/clear.mjs node_modules .cache dist .turbo generated",
+        "prepare": "node _tools/scripts/prepare.mjs"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "catalog:",
+        "@commitlint/config-conventional": "catalog:",
+        "@commitlint/types": "catalog:",
+        "@types/node": "catalog:",
+        "bun": "catalog:",
+        "oxlint": "catalog:",
+        "prettier": "catalog:",
+        "turbo": "catalog:",
+        "typescript": "catalog:"
+    },
+    "engines": {
+        "node": "24.22.1",
+        "pnpm": "12.15.0"
+    },
+    "packageManager": "pnpm@12.15.0"
+}

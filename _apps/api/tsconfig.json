@@ -1,0 +1,15 @@
+{
+    "extends": "@app_/tsconfig/tsconfig.base.json",
+    "compilerOptions": {
+        // Bun runs this source directly: the config only type-checks, so it must not inherit the base's declaration emit.
+        "composite": false,
+        "declaration": false,
+        "declarationMap": false,
+        "noEmit": true,
+        // oRPC's builders rely on optional properties being assignable from undefined.
+        "exactOptionalPropertyTypes": false,
+        "tsBuildInfoFile": "./.cache/tsbuildinfo",
+        "types": ["bun"]
+    },
+    "include": ["./src/**/*"]
+}

@@ -1,0 +1,37 @@
+{
+    "name": "@app_/api",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "files": [
+        "src"
+    ],
+    "scripts": {
+        "dev": "bun --conditions=@app_/src --watch ./src/main.ts",
+        "start": "bun ./src/main.ts",
+        "test": "bun test --conditions=@app_/src",
+        "typecheck": "bun check",
+        "docker:release": "bash ../../_tools/scripts/docker-release.sh --prune"
+    },
+    "dependencies": {
+        "@app_/api-contract": "workspace:*",
+        "@app_/constants": "workspace:*",
+        "@app_/localhost-https": "workspace:*",
+        "@app_/prisma": "workspace:*",
+        "@orpc/openapi": "catalog:",
+        "@orpc/server": "catalog:",
+        "@prisma/adapter-pg": "catalog:",
+        "@puristic/env": "catalog:",
+        "hono": "catalog:",
+        "pino": "catalog:",
+        "pino-pretty": "catalog:",
+        "prisma": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@app_/tsconfig": "workspace:*",
+        "@types/bun": "catalog:",
+        "bun": "catalog:",
+        "typescript": "catalog:"
+    }
+}

@@ -1,0 +1,16 @@
+/* Browser code built by Vite: bundler resolution, DOM libraries, no declaration emit. */
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "composite": false,
+        "declaration": false,
+        "declarationMap": false,
+        "exactOptionalPropertyTypes": false,
+        "lib": ["ES2024", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "target": "ES2023"
+    }
+}

@@ -1,0 +1,32 @@
+# Root + nested packages.
+**/node_modules
+**/.cache
+**/.turbo
+**/dist
+**/generated
+**/out-tsc
+**/*.tsbuildinfo
+**/npm-debug.log*
+**/pnpm-debug.log*
+**/tmp
+
+# pnpm's content-addressable store, which an install mints inside the checkout when it and $HOME are on different
+# filesystems.
+**/.pnpm-store
+
+# The web app's runtime config, bundled from src/environments by its dev and build scripts.
+**/assets/js/env.js
+
+# env / secrets
+**/.env
+**/.env.local
+**/.env.*.local
+**/.env.production
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+
+# Claude Code per-user local settings — never shared across devs.
+/.claude/settings.local.json

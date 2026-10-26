@@ -1,0 +1,6 @@
+# The context is this app directory, but only the served artifacts enter the image: the dist turbo built, the nginx
+# config template and the entrypoint that renders it. Source, node_modules and public/ (already in dist) never do.
+*
+!dist
+!nginx.conf
+!entrypoint.sh

@@ -1,0 +1,13 @@
+{
+    "extends": "@app_/tsconfig/tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./",
+        "tsBuildInfoFile": "./.cache/tsbuildinfo",
+        "types": ["node"],
+        // Generated code is written for Prisma's defaults, not this repository's strictest flags.
+        "exactOptionalPropertyTypes": false,
+        "noPropertyAccessFromIndexSignature": false
+    },
+    "include": ["./client.ts", "./generated/**/*"]
+}

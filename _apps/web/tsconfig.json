@@ -1,0 +1,8 @@
+{
+    "extends": "@app_/tsconfig/tsconfig.vue.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "./.cache/tsbuildinfo",
+        "types": ["vite/client"]
+    },
+    "include": ["./src/**/*.ts", "./src/**/*.vue"]
+}

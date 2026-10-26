@@ -1,0 +1,220 @@
+{
+    // Rules are ENUMERATED rather than pulled in by category. Oxlint's wide categories are buckets of available rules, not
+    // curated presets, and they contradict each other (`restriction` alone carries no-async-await and no-optional-chaining).
+    // Enumerating also pins the rule set across oxlint upgrades, so a bump cannot silently change what is enforced.
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": ["typescript", "unicorn", "oxc", "import", "vue", "promise", "node", "jest"],
+    "categories": {
+        "correctness": "error",
+        "suspicious": "error",
+        "perf": "error"
+    },
+    "rules": {
+        "typescript/no-extraneous-class": ["error", { "allowWithDecorator": true }],
+        "import/no-unassigned-import": ["error", { "allow": ["**/*.css"] }],
+        // `_` is the throwaway binding, not a private-member sigil; the rest are names other tools chose.
+        "no-underscore-dangle": ["error", { "allow": ["_", "_count", "__API_URL__"] }],
+        // `fix.imports` lets --fix delete an unused import outright. Variable removal stays off: deleting a binding can
+        // delete an initialiser's side effect with it.
+        "no-unused-vars": ["error", { "args": "none", "varsIgnorePattern": "^_", "fix": { "imports": "safe-fix", "variables": "off" } }],
+
+        // Off on purpose: each is wrong more often than right in ordinary code, and a rule people learn to reach past is
+        // worth less than no rule.
+        // Sequential awaits in a loop are usually the intent (ordered writes, rate-limited calls).
+        "no-await-in-loop": "off",
+        // Wrapping a genuine callback API has no await to prefer.
+        "promise/prefer-await-to-callbacks": "off",
+        "promise/always-return": "off",
+        "promise/no-callback-in-promise": "off",
+        "promise/no-promise-in-callback": "off",
+        // Settling twice is a no-op by spec, and the rule counts both arms of a ternary.
+        "promise/no-multiple-resolved": "off",
+        "promise/param-names": "off",
+        // Factory closures and per-call helpers are deliberate.
+        "unicorn/consistent-function-scoping": "off",
+        "unicorn/no-hex-escape": "off",
+        "unicorn/catch-error-name": "off",
+        "unicorn/prefer-string-replace-all": "off",
+        // Its autofix is not value-safe: appendChild() returns the node, append() returns undefined.
+        "unicorn/prefer-dom-node-append": "off",
+        // Fires on every .sort(), including arrays spread into existence one expression earlier.
+        "unicorn/no-array-sort": "off",
+        // Fires on immutable updates (`items.map((item) => ({ ...item }))`) and suggests mutating the input instead.
+        "oxc/no-map-spread": "off",
+        // JSON.parse(JSON.stringify(x)) is used for its JSON semantics, which structuredClone does not have.
+        "unicorn/prefer-structured-clone": "off",
+
+        // A promise chained inside another's handler, where a failure is swallowed out of sight.
+        "promise/no-nesting": "error",
+
+        // Debug residue and leftovers.
+        "no-warning-comments": ["error", { "terms": ["@nocommit", "FIXME"] }],
+        // THE LOAD-BEARING ONE: without it a blanket `oxlint-disable` is the cheapest way to quiet the linter.
+        "unicorn/no-abusive-eslint-disable": "error",
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "jest/no-focused-tests": "error",
+        "jest/no-disabled-tests": "error",
+        "jest/no-identical-title": "error",
+
+        // An assertion that cannot fail. Snapshots record what the code DOES; a test says what it must do.
+        "jest/no-restricted-matchers": [
+            "error",
+            {
+                "toMatchSnapshot": "A snapshot records what the code does; assert the fields the behaviour is about.",
+                "toMatchInlineSnapshot": "A snapshot records what the code does; assert the fields the behaviour is about.",
+                "toBeDefined": "Says only 'not undefined'. Assert what the value is: expect.any(String), toMatchObject({…}).",
+                "toBeTruthy": "Passes for any non-empty string, any object, any non-zero number. Assert the value.",
+                "toBeFalsy": "Passes for 0, \"\", null, undefined and NaN alike. Assert the one you mean.",
+                "toHaveBeenCalled": "Says a call happened, not that it was the right one. Use toHaveBeenCalledWith or toHaveBeenCalledTimes."
+            }
+        ],
+        "jest/expect-expect": ["error", { "assertFunctionNames": ["expect", "expectTypeOf"] }],
+        "jest/valid-expect": ["error", { "maxArgs": 2 }],
+        "jest/no-commented-out-tests": "off",
+
+        // Type honesty (no checker needed).
+        "typescript/consistent-type-imports": ["error", { "disallowTypeAnnotations": false }],
+        "typescript/no-import-type-side-effects": "error",
+        "typescript/no-explicit-any": "error",
+        "typescript/no-empty-object-type": "error",
+        "typescript/no-unsafe-function-type": "error",
+        "typescript/no-wrapper-object-types": "error",
+        "typescript/no-duplicate-enum-values": "error",
+        "typescript/no-unsafe-declaration-merging": "error",
+        "typescript/no-misused-new": "error",
+        "typescript/no-require-imports": "error",
+        "typescript/triple-slash-reference": "error",
+        "typescript/no-extra-non-null-assertion": "error",
+        "typescript/no-confusing-non-null-assertion": "error",
+        "typescript/no-non-null-asserted-nullish-coalescing": "error",
+        "typescript/no-non-null-asserted-optional-chain": "error",
+        "typescript/no-unnecessary-type-constraint": "error",
+        "typescript/no-unnecessary-parameter-property-assignment": "error",
+        "typescript/prefer-as-const": "error",
+        "typescript/prefer-literal-enum-member": "error",
+        "typescript/no-useless-empty-export": "error",
+        "typescript/no-namespace": "error",
+        "typescript/ban-ts-comment": "error",
+
+        // Core correctness and intent.
+        "eqeqeq": ["error", "always", { "null": "ignore" }],
+        // Nesting is the part of "complex" a reader feels; extraction lowers it without adding branch points.
+        "max-depth": ["error", 4],
+        "max-nested-callbacks": ["error", 4],
+        // A brace-less `if` is where a later single-line edit silently lands outside the branch.
+        "curly": "error",
+        "array-callback-return": "error",
+        "no-throw-literal": "error",
+        "preserve-caught-error": "error",
+        "no-var": "error",
+        "prefer-const": ["error", { "destructuring": "all" }],
+        "object-shorthand": "error",
+        "no-shadow": "error",
+        "no-sequences": "error",
+        "no-unused-private-class-members": "error",
+        "no-constant-binary-expression": "error",
+        "no-unsafe-optional-chaining": "error",
+        "no-unmodified-loop-condition": "error",
+        "no-unassigned-vars": "error",
+        "no-new-wrappers": "error",
+        "no-new-func": "error",
+        "no-implied-eval": "error",
+        "no-extra-bind": "error",
+        "no-useless-rename": "error",
+        "no-object-constructor": "error",
+        "no-array-constructor": "error",
+        "no-multi-str": "error",
+        "no-return-assign": "error",
+        "no-self-compare": "error",
+        "no-unneeded-ternary": "error",
+        "default-case-last": "error",
+        "grouped-accessor-pairs": "error",
+        "symbol-description": "error",
+        "operator-assignment": "error",
+        "prefer-object-has-own": "error",
+        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
+        "prefer-exponentiation-operator": "error",
+        "prefer-numeric-literals": "error",
+        "prefer-promise-reject-errors": "error",
+        "prefer-regex-literals": "error",
+        "prefer-rest-params": "error",
+        "prefer-spread": "error",
+        "prefer-template": "error",
+        "radix": "error",
+        "require-yield": "error",
+
+        // Promises.
+        "promise/no-return-wrap": "error",
+        "promise/no-new-statics": "error",
+        "promise/valid-params": "error",
+        "promise/no-return-in-finally": "error",
+        "promise/spec-only": "error",
+
+        // Modern built-ins.
+        "unicorn/error-message": "error",
+        "unicorn/throw-new-error": "error",
+        "unicorn/new-for-builtins": "error",
+        "unicorn/no-instanceof-builtins": "error",
+        "unicorn/no-invalid-fetch-options": "error",
+        "unicorn/no-typeof-undefined": "error",
+        "unicorn/no-useless-promise-resolve-reject": "error",
+        "unicorn/no-useless-spread": "error",
+        "unicorn/no-useless-length-check": "error",
+        "unicorn/no-magic-array-flat-depth": "error",
+        "unicorn/no-unnecessary-slice-end": "error",
+        "unicorn/no-await-in-promise-methods": "error",
+        "unicorn/no-single-promise-in-promise-methods": "error",
+        "unicorn/no-console-spaces": "error",
+        "unicorn/consistent-empty-array-spread": "error",
+        "unicorn/require-array-join-separator": "error",
+        "unicorn/text-encoding-identifier-case": "error",
+        "unicorn/prefer-node-protocol": "error",
+        "unicorn/prefer-string-slice": "error",
+        "unicorn/prefer-string-starts-ends-with": "error",
+        "unicorn/prefer-array-flat-map": "error",
+        "unicorn/prefer-array-index-of": "error",
+        "unicorn/prefer-array-some": "error",
+        "unicorn/prefer-at": "error",
+        "unicorn/prefer-set-size": "error",
+        "unicorn/prefer-number-properties": "error",
+        "unicorn/prefer-optional-catch-binding": "error",
+        "unicorn/prefer-import-meta-properties": "error",
+        "unicorn/prefer-native-coercion-functions": "error",
+
+        // Imports.
+        "import/first": "error",
+        "import/no-duplicates": "error",
+        "import/no-self-import": "error",
+        "import/no-empty-named-blocks": "error",
+        "import/no-mutable-exports": "error",
+        "import/no-named-default": "error",
+        "import/no-named-as-default": "error",
+        "import/no-absolute-path": "error",
+        "import/no-webpack-loader-syntax": "error",
+        "node/no-exports-assign": "error",
+        "node/no-new-require": "error"
+    },
+    "env": {
+        "node": true,
+        "browser": true,
+        "es2024": true
+    },
+    "ignorePatterns": ["**/node_modules", "**/.cache", "**/.turbo", "**/dist", "**/generated", "**/out-tsc", "**/tmp", "**/assets/js/env.js"],
+    "overrides": [
+        {
+            // Tooling whose output IS stdout: scripts and configs. console.log is the product here, not a leftover.
+            "files": ["**/*.mjs", "**/scripts/**", "**/*.config.*"],
+            "rules": {
+                "no-console": "off"
+            }
+        },
+        {
+            "files": ["**/*.test.ts"],
+            "rules": {
+                // A test may hold a deliberately wrong shape to assert the code rejects it.
+                "typescript/no-explicit-any": "off",
+                "unicorn/error-message": "off"
+            }
+        }
+    ]
+}

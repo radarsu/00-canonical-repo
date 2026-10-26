@@ -1,0 +1,7 @@
+# Nothing writes a certificate or key here (both live in the per-user data directory, see paths.mjs). The names stay
+# ignored so a stray pair from an older layout can never be swept into a commit.
+localhost.crt
+localhost.key
+localhost-com-ca.crt
+localhost-com-ca.key
+localhost-com-ca.srl
